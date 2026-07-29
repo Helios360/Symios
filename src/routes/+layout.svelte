@@ -115,10 +115,10 @@
         </span>
     </div>
 </footer>
-<div class="subfooter">
+<footer class="subfooter">
     <span>© {new Date().getFullYear()} symios — fait par hellios</span>
     <span>open-source friendly · <a>CGV</a> · <a>GGU</a> · <a>Mentions légales</a></span>
-</div>
+</footer>
 
 <style>
 	.subheader{

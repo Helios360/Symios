@@ -149,6 +149,21 @@ body::after {
     50%      { transform: translate3d(12%, 8%, 0); }
 }
 
+@keyframes symios-blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+
+@keyframes symios-rec {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+}
+
+@keyframes symios-cue {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50%      { transform: translateY(6px); opacity: 0.5; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     body::before,
     body::after {
@@ -167,6 +182,8 @@ header {
     max-width: 1440px;
     margin-inline: auto;
     color: var(--text-color);
+    position: relative;
+    z-index: 50;
 }
 nav {
     display: flex;
@@ -189,6 +206,8 @@ footer {
     color: var(--secondary);
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 100;
 }
 h1{
     font-family: "artistic", serif;
