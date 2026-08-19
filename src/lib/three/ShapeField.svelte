@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
+import { onDestroy } from 'svelte';
 	import { scrollStore, type ScrollState } from '$lib/motion/scrollStore';
 	import { pointerStore, type PointerState } from '$lib/motion/pointerStore';
-	import { motionConfig } from '$lib/motion/config';
 	import { shapeSpecs, shapeDir, shapeDrift, scrollRotY, scrollRotX, scrollRotZ, floatPhase } from './shapeSpecs';
 	import { createShapeStage, type ShapeStage } from './createShapeStage';
 
@@ -12,14 +12,11 @@
 	let alive = true;
 	let unsubScroll: (() => void) | null = null;
 	let unsubPointer: (() => void) | null = null;
-	let unsubConfig: (() => void) | null = null;
 
 	let sy = 0;
 	let vh = 1;
 	let mx = 0;
 	let my = 0;
-	let intensity = 1;
-	let spinSpeed = 1;
 
 	// Reduced motion check
 	let reducedMotion = false;
@@ -52,13 +49,6 @@
 			mx = p.nx;
 			my = p.ny;
 		});
-
-		unsubConfig = motionConfig.subscribe((cfg) => {
-			intensity = cfg.intensity;
-			spinSpeed = cfg.spinSpeed;
-		});
-
-		return () => cleanup();
 	});
 
 	function initStages() {
@@ -94,7 +84,7 @@
 			const phase = floatPhase[st.key] || 0;
 
 			// Pointer lissé
-			const effectiveIntensity = Math.max(0.55, intensity);
+			const effectiveIntensity = 0.55;
 			st.px += (mx * dir * effectiveIntensity - st.px) * 0.045;
 			st.py += (my * dir * effectiveIntensity - st.py) * 0.045;
 
@@ -122,7 +112,7 @@
 			}
 
 			// Mesh self-rotation
-			const sp = st.preset.spin * spinSpeed;
+			const sp = st.preset.spin;
 			if (isFinite(sp)) {
 				st.shellMesh.rotation.x += 0.003 * sp;
 				st.shellMesh.rotation.y += 0.005 * sp;
@@ -151,10 +141,9 @@
 		for (const [key, el] of Object.entries(containers)) {
 			if (!el) continue;
 			const drift = shapeDrift[key] || [0, 0, 1];
-			const containerIntensity = intensity > 0 ? intensity : 0.55;
 
-			const x = prog * drift[0] * 340 + mx * 30 * drift[2] * containerIntensity;
-			const y = prog * drift[1] * 300 + my * 26 * drift[2] * containerIntensity;
+			const x = prog * drift[0] * 340 + mx * 30 * drift[2] * 0.55;
+			const y = prog * drift[1] * 300 + my * 26 * drift[2] * 0.55;
 			const rot = prog * drift[1] * 16;
 			const scale = 1 + Math.sin(Math.min(prog, 4) * 0.8) * 0.09 * drift[2];
 
@@ -183,7 +172,6 @@
 		if (raf !== null) cancelAnimationFrame(raf);
 		if (unsubScroll) unsubScroll();
 		if (unsubPointer) unsubPointer();
-		if (unsubConfig) unsubConfig();
 		for (const st of stages) {
 			try {
 				st._ro.disconnect();

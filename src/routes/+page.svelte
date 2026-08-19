@@ -48,7 +48,7 @@
 		/>
 		<Manifesto />
 		<Catalogue
-			modules={data.showcase.map((a: any) => ({
+			modules={data.showcase.map((a) => ({
 				id: a.id,
 				title: a.title,
 				subtitle: a.subtitle,

@@ -10,11 +10,11 @@
 	<!-- Title terminal window -->
 	<div class="terminal-wrapper terminal-title" use:float={{ amp: 8, period: 3.2, phase: 0 }} use:parallax={42}>
 		<div class="terminal-panel" use:tilt={{ max: 2.5, perspective: 1000 }}>
-			<div class="terminal-header">
-				<span class="dot dot-red"></span>
-				<span class="dot dot-amber"></span>
-				<span class="dot dot-green"></span>
-				<span class="terminal-title-label mono-alt">symios:~$</span>
+			<div class="term-header">
+				<span class="term-dot term-dot--red"></span>
+				<span class="term-dot term-dot--amber"></span>
+				<span class="term-dot term-dot--green"></span>
+				<span class="term-title mono-alt">symios:~$</span>
 			</div>
 			<h1>
 				Le futur s'invite
@@ -26,11 +26,11 @@
 	<!-- Text + CTA terminal window -->
 	<div class="terminal-wrapper terminal-desc" use:float={{ amp: 8, period: 3.2, phase: 0 }} use:parallax={42}>
 		<div class="terminal-panel" use:tilt={{ max: 2.5, perspective: 1000 }}>
-			<div class="terminal-header">
-				<span class="dot dot-red"></span>
-				<span class="dot dot-amber"></span>
-				<span class="dot dot-green"></span>
-				<span class="terminal-title-label mono-alt">symios:~$</span>
+			<div class="term-header">
+				<span class="term-dot term-dot--red"></span>
+				<span class="term-dot term-dot--amber"></span>
+				<span class="term-dot term-dot--green"></span>
+				<span class="term-title mono-alt">symios:~$</span>
 			</div>
 			<p class="section-index">// MISSION 001 — Déploiement IA</p>
 			<p class="hero-desc">
@@ -59,7 +59,7 @@
 		max-width: 70%;
 		position: absolute;
 		top: 300px;
-		left: -5%;
+		left: -7%;
 		z-index: 100;
 		will-change: transform;
 	}
@@ -89,31 +89,6 @@
 		background: #1c140d;
 		box-shadow: var(--shadow-hard);
 		transform-style: preserve-3d;
-	}
-
-	.terminal-header {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		padding: 12px 16px;
-		border-bottom: 1px solid #4a3a28;
-		background: #1c140d;
-	}
-
-	.dot {
-		width: 11px;
-		height: 11px;
-		border-radius: 50%;
-		display: inline-block;
-	}
-	.dot-red { background: #e05a5a; }
-	.dot-amber { background: #e0982f; }
-	.dot-green { background: #7ca85a; }
-
-	.terminal-title-label {
-		margin-left: auto;
-		font-size: 11px;
-		color: #8a7d63;
 	}
 
 	/* ── Title inside first terminal ── */
@@ -153,5 +128,20 @@
 		padding: 0 1rem 1rem;
 		display: flex;
 		gap: 1rem;
+	}
+
+	/* ── Button overrides for dark terminal bg ── */
+	.button-container :global(.cta) {
+		border-color: var(--text-ondark);
+		box-shadow: 3px 3px 0 0 var(--text-ondark);
+	}
+
+	.button-container :global(.cta):hover {
+		box-shadow: 5px 5px 0 0 var(--text-ondark);
+	}
+
+	.button-container :global(.cta-light) {
+		color: var(--text-ondark);
+		border-color: var(--text-ondark);
 	}
 </style>

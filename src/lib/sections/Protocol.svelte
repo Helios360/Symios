@@ -2,6 +2,7 @@
 	import { reveal } from '$lib/motion/reveal';
 	import { slideIn } from '$lib/motion/slideIn';
 	import { float } from '$lib/motion/float';
+	import { onMount } from 'svelte';
 	import { scrollStore, type ScrollState } from '$lib/motion/scrollStore';
 
 	let { } = $props();
@@ -27,8 +28,6 @@
 			progressBarEl.style.width = `${p * 100}%`;
 		}
 	}
-
-	import { onMount } from 'svelte';
 
 	onMount(() => {
 		unsub = scrollStore.subscribe(onScroll);

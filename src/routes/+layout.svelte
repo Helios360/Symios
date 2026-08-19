@@ -2,33 +2,31 @@
 	import '../styles/app.css';
 	import { page } from '$app/state';
 	import type { LayoutData } from './$types';
+	import { scrollSpeed } from '$lib/motion/scrollSpeed';
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
 	const SITE_URL = 'https://www.symios.com';
     const SITE_NAME = 'Symios';
     const DEFAULT_TITLE = "Symios | Intégrateur IA";
-    const DEFAULT_DESCRIPTION = "Pâtisseries artisanales dans l'Oise : number cakes, gâteaux à thèmes, petits fours sucrés/salés. Ingrédients de qualité et décors faits main. Commandez en ligne.";
+    const DEFAULT_DESCRIPTION = "Hellios conçoit, déploie et documente des agents IA sur-mesure pour les entreprises. Audit, architecture, déploiement — livré avec sa documentation.";
     const OG_IMAGE = `${SITE_URL}/images/icon.png`;
     let canonical = $derived(`${SITE_URL}${page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')}`);
 	const structuredData = {
         '@context': 'https://schema.org',
-        '@type': 'Bakery',
+        '@type': 'ProfessionalService',
         name: SITE_NAME,
         url: SITE_URL,
         image: OG_IMAGE,
         description: DEFAULT_DESCRIPTION,
-        priceRange: '€€',
+        priceRange: '€€–€€€',
         address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Canny-sur-Matz',
-            addressRegion: 'Oise',
             addressCountry: 'FR'
         },
-        areaServed: { '@type': 'AdministrativeArea', name: "Oise" },
+        areaServed: { '@type': 'AdministrativeArea', name: "France" },
         sameAs: [
-            'https://www.facebook.com/larecette60/',
-            'https://www.instagram.com/larecette_60',
-            'https://www.tiktok.com/@mimimacaron60'
+            'https://github.com/symios',
+            'https://www.linkedin.com/company/symios'
         ]
     };
 </script>
@@ -38,11 +36,11 @@
     <meta name="description" content={DEFAULT_DESCRIPTION}>
     <link rel="canonical" href={canonical}>
     <meta name="author" content={SITE_NAME}>
-    <meta name="keywords" content="Symios, ia, IA, AI, ai, agents, agent, transition, technologique, futur, entreprises">
+    <meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
 
     <link rel="icon" type="image/webp" sizes="180x180" href="/images/favicon.png">
-    <link rel="shortcut icon" href="/images/larecetteIcon.ico">
-    <link rel="apple-touch-icon" href="/images/larecette.webp">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
@@ -51,7 +49,7 @@
     <meta property="og:description" content={DEFAULT_DESCRIPTION}>
     <meta property="og:url" content={canonical}>
     <meta property="og:image" content={OG_IMAGE}>
-    <meta property="og:image:alt" content="La Recette — pâtisseries artisanales">
+    <meta property="og:image:alt" content="Symios — Intégrateur IA">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content={DEFAULT_TITLE}>
@@ -72,12 +70,6 @@
 		<a href="/ressources">ressources</a>
 		<a href="/contact">contact</a>
 		<a href="/project" class="cta">démmarer un projet</a>
-		<!--<a href="/account" aria-label="Mon compte" class="account-link" class:active={isActive('/account')} aria-current={isActive('/account') ? 'page' : undefined}>
-            <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-                <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5m0-8a3 3 0 1 1-3 3 3 3 0 0 1 3-3m9 17v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1Z"/>
-            </svg>
-        </a>
-	-->
 	</nav>
 </header>
 <div class="subheader">
@@ -94,12 +86,12 @@
     </span>
 </div>
 
-<main>
+<main use:scrollSpeed>
 	{@render children()}
 </main>
 <br>
 <footer>
-    <a href="/" style="background-color:aliceblue;"><img src="/images/logo.png" height="100px" alt="SYMIOS"></a>
+    <a href="/"><img src="/images/logo.png" height="100px" alt="SYMIOS"></a>
     <div class="usefull-links">
         <span>
             <p style="color:var(--accent)">NAVIGUER</p>

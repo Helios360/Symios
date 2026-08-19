@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { reveal } from '$lib/motion/reveal';
+	import { float } from '$lib/motion/float';
+	import { tilt } from '$lib/motion/tilt';
 	import ProductCard from '$lib/components/product-card.svelte';
 	import type { PageData } from './$types';
 
@@ -30,7 +33,7 @@
 	}
 </script>
 
-<section class="catalog">
+<section class="shop-header" use:reveal>
 	<p class="section-index">// LA BOUTIQUE</p>
 	<h1>TOUT LE<br />CATALOGUE</h1>
 	<p>
@@ -40,7 +43,7 @@
 </section>
 
 <!-- TOOLBAR -->
-<section class="toolbar">
+<section class="toolbar" use:reveal>
 	<div class="toolbar-row">
 		<div class="field search">
 			<span class="field-label" aria-hidden="true">⌕</span>
@@ -83,18 +86,20 @@
 </section>
 
 <!-- GRID -->
-<section class="grid-wrap">
+<section class="grid-wrap" use:reveal>
 	{#if items.length}
 		<div class="grid">
-			{#each items as item (item.id)}
-				<ProductCard article={item} authenticated={data.authenticated} />
+			{#each items as item, i (item.id)}
+				<ProductCard article={item} authenticated={data.authenticated} index={i} />
 			{/each}
 		</div>
 	{:else}
-		<div class="empty">
+		<div class="empty" use:tilt={{ max: 2, perspective: 1100 }}>
 			<div class="empty-bar">
-				<span class="dots"><i></i><i></i><i></i></span>
-				<span class="mono">search.sh</span>
+				<span class="term-dot term-dot--red"></span>
+				<span class="term-dot term-dot--amber"></span>
+				<span class="term-dot term-dot--green"></span>
+				<span class="term-title mono-alt">search.sh</span>
 			</div>
 			<div class="empty-body mono">
 				<div class="cmd">&gt; symios shop --grep "{query}"</div>
@@ -106,11 +111,14 @@
 </section>
 
 <style>
-	.catalog {
+	/* ── Header ──────────────────────────────────────────── */
+	.shop-header {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 		padding: 2rem 2rem 0.5rem;
+		position: relative;
+		z-index: 10;
 	}
 
 	/* ── Toolbar ─────────────────────────────────────────── */
@@ -119,6 +127,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.4rem;
+		position: relative;
+		z-index: 10;
 	}
 	.toolbar-row {
 		display: flex;
@@ -174,9 +184,11 @@
 		color: var(--text-muted);
 	}
 
-	/* ── Grille ──────────────────────────────────────────── */
+	/* ── Grid ────────────────────────────────────────────── */
 	.grid-wrap {
 		padding: 1.8rem 2rem;
+		position: relative;
+		z-index: 10;
 	}
 	.grid {
 		display: grid;
@@ -185,7 +197,7 @@
 		align-items: start;
 	}
 
-	/* ── État vide (terminal) ────────────────────────────── */
+	/* ── Empty state (terminal) ──────────────────────────── */
 	.empty {
 		max-width: 560px;
 		margin-inline: auto;
@@ -194,6 +206,7 @@
 		border-radius: var(--bigger-radius);
 		box-shadow: var(--shadow-hard);
 		background-color: #1c140d;
+		transform-style: preserve-3d;
 	}
 	.empty-bar {
 		display: flex;
@@ -204,20 +217,11 @@
 		background-color: var(--primary);
 		color: var(--text-ondark);
 		font-size: 12px;
+		border-bottom: 1px solid #4a3a28;
 	}
-	.dots {
-		display: flex;
-		gap: 7px;
+	.empty-bar .term-title {
+		margin-left: auto;
 	}
-	.dots i {
-		width: 11px;
-		height: 11px;
-		border-radius: 50%;
-		display: block;
-	}
-	.dots i:nth-child(1) { background: var(--accent); }
-	.dots i:nth-child(2) { background: var(--mustard); }
-	.dots i:nth-child(3) { background: var(--text-muted); }
 	.empty-body {
 		padding: 26px 24px;
 		font-size: 13.5px;
@@ -232,7 +236,7 @@
 	}
 
 	@media (max-width: 614px) {
-		.catalog,
+		.shop-header,
 		.toolbar,
 		.grid-wrap {
 			padding-inline: 1.2rem;

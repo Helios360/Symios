@@ -4,7 +4,6 @@
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
 
-	let { } = $props();
 	let lines = $state<string[]>([]);
 	let visibleCount = $state(0);
 	let timer: ReturnType<typeof setTimeout> | null = null;
@@ -74,11 +73,11 @@
 	</div>
 	<div class="terminal-col-right" use:float={{ amp: 6, period: 3, phase: 0 }}>
 		<div class="terminal-window" use:tilt={{ max: 2.5, perspective: 1000 }}>
-			<div class="win-header">
-				<span class="dot dot-red"></span>
-				<span class="dot dot-amber"></span>
-				<span class="dot dot-green"></span>
-				<span class="win-title mono-alt">deploy.sh — bash</span>
+			<div class="term-header">
+				<span class="term-dot term-dot--red"></span>
+				<span class="term-dot term-dot--amber"></span>
+				<span class="term-dot term-dot--green"></span>
+				<span class="term-title mono-alt">deploy.sh — bash</span>
 			</div>
 			<div class="win-body">
 				{#each lines.slice(0, visibleCount) as line}
@@ -132,31 +131,6 @@
 		overflow: hidden;
 		background: #1c140d;
 		box-shadow: var(--shadow-hard);
-	}
-
-	.win-header {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		padding: 12px 16px;
-		border-bottom: 1px solid #4a3a28;
-		background: #1c140d;
-	}
-
-	.dot {
-		width: 11px;
-		height: 11px;
-		border-radius: 50%;
-		display: inline-block;
-	}
-	.dot-red { background: #e05a5a; }
-	.dot-amber { background: #e0982f; }
-	.dot-green { background: #7ca85a; }
-
-	.win-title {
-		margin-left: auto;
-		font-size: 11px;
-		color: #8a7d63;
 	}
 
 	.win-body {
