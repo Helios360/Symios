@@ -1,3 +1,9 @@
-# allow crawling everything by default
+# Allow crawling everything
 User-agent: *
-Disallow:
+Disallow: /account
+Disallow: /admin
+Disallow: /api/
+Disallow: /shop/checkout
+
+# Sitemap
+Sitemap: https://www.symios.com/sitemap.xml

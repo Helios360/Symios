@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll, goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { authClient } from '$lib/auth-client';
 	import {
@@ -227,14 +228,12 @@
 						<form method="POST" action="?/clearCart" use:enhance={cartAction('Panier vidé.')}>
 							<button type="submit" class="cta-light">Vider</button>
 						</form>
-						<form method="POST" action="?/checkout" use:enhance={cartAction('Commande validée — merci !')}>
-							<button type="submit" class="cta">Valider la commande</button>
-						</form>
+						<a href="{base}/shop/checkout" class="cta">Passer au paiement →</a>
 					</div>
 				</div>
 			{:else}
 				<p class="mono sub empty-cart">
-					Votre panier est vide. <a href="/shop">Parcourir la boutique →</a>
+					Votre panier est vide. <a href="{base}/shop">Parcourir la boutique →</a>
 				</p>
 			{/if}
 		</section>
@@ -308,7 +307,7 @@
 				<h2>Zone sensible</h2>
 				<p class="mono sub">La suppression est définitive et efface toutes vos données.</p>
 				{#if !confirmingDelete}
-					<button class="cta-light danger-btn" onclick={() => (confirmingDelete = true)}>
+					<button class="cta-light danger-btn cta-some" onclick={() => (confirmingDelete = true)}>
 						Supprimer mon compte
 					</button>
 				{:else}
@@ -413,6 +412,12 @@
 </section>
 
 <style>
+	.cta-some:hover{
+		transform: translateY(-2px);
+		background: var(--primary);
+		color: var(--accent-color);
+		border-color: var(--accent);
+	}
 	.account {
 		max-width: 1100px;
 		margin-inline: auto;

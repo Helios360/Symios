@@ -1,17 +1,18 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
 </script>
 
 <section class="cta-section" use:reveal>
-	<div class="cta-block" use:tilt={{ max: 2, perspective: 1100 }}>
-		<div class="cta-inner" use:float={{ amp: 7, period: 3.6, phase: 0 }}>
+	<div class="cta-block" use:tilt={{ max: 2, perspective: 1100 }} use:float={{ amp: 7, period: 3.6, phase: 0 }}>
+		<div class="cta-inner">
 			<h2>Prêt à passer<br />à l'action&nbsp;?</h2>
-			<p>Un audit gratuit pour cartographier vos besoins et vos systèmes.</p>
+			<p>Un audit gratuit pour faire le point sur vos besoins et vos systèmes.</p>
 			<div class="button-container">
-				<a href="/project" class="cta cta-inverse">Démarrer un projet →</a>
-				<a href="/services" class="cta-light">Voir nos services</a>
+				<a href="{base}/project" class="cta cta-inverse">Démarrer un projet →</a>
+				<a href="{base}/services" class="cta-light">Voir nos services</a>
 			</div>
 		</div>
 	</div>
@@ -67,5 +68,11 @@
 	.cta-block .cta-light {
 		color: var(--text-ondark);
 		border-color: var(--text-ondark);
+	}
+	@media (max-width:915px){
+		.cta-block{
+			width:100%;
+			max-width:100%
+		}
 	}
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { slideIn } from '$lib/motion/slideIn';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
@@ -17,9 +18,9 @@
 
 <section class="catalogue-section">
 	<div class="catalogue-header">
-		<p class="section-index">// MISSION 002 — Le catalogue</p>
+		<p class="section-index">// 002 — Le catalogue</p>
 		<h2>Travaillons ensemble</h2>
-		<a href="/shop" class="catalogue-link mono-alt">Tout le catalogue →</a>
+		<a href="{base}/shop" class="catalogue-link mono-alt">Tout le catalogue →</a>
 	</div>
 
 	<div class="modules-grid">
@@ -44,7 +45,7 @@
 					{/if}
 					<div class="card-foot">
 						<span class="price-label mono-alt">{module.price ? `${module.price}€` : 'Sur-mesure'}</span>
-						<a href="/shop" class="cta-light">Voir →</a>
+						<a href="{base}/shop" class="cta-light">Voir →</a>
 					</div>
 				</div>
 			</article>

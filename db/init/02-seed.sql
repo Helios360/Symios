@@ -12,7 +12,7 @@ INSERT IGNORE INTO articles (category_id, slug, title, subtitle, cover_image_key
         (SELECT id FROM categories WHERE name = 'Abonnement'),
         'agent-gere',
         'Agent géré',
-        'Votre agent IA en production, supervisé et amélioré en continu, mois après mois.',
+        'Votre agent IA en production, suivi et amélioré en continu, mois après mois.',
         NULL,
         890.00,
         '<ul><li>supervision &amp; monitoring</li><li>mises à jour modèles</li><li>support prioritaire</li></ul>'

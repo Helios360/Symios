@@ -1,162 +1,301 @@
 <script lang="ts">
-	import '../styles/app.css';
 	import { page } from '$app/state';
+	import { base } from '$app/paths';
 	import type { LayoutData } from './$types';
 	import { scrollSpeed } from '$lib/motion/scrollSpeed';
+	import '../styles/app.css';
+
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
+	let mobileNavOpen = $state(false);
+
 	const SITE_URL = 'https://www.symios.com';
-    const SITE_NAME = 'Symios';
-    const DEFAULT_TITLE = "Symios | Intégrateur IA";
-    const DEFAULT_DESCRIPTION = "Hellios conçoit, déploie et documente des agents IA sur-mesure pour les entreprises. Audit, architecture, déploiement — livré avec sa documentation.";
-    const OG_IMAGE = `${SITE_URL}/images/icon.png`;
-    let canonical = $derived(`${SITE_URL}${page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')}`);
-	const structuredData = {
-        '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        name: SITE_NAME,
-        url: SITE_URL,
-        image: OG_IMAGE,
-        description: DEFAULT_DESCRIPTION,
-        priceRange: '€€–€€€',
-        address: {
-            '@type': 'PostalAddress',
-            addressCountry: 'FR'
-        },
-        areaServed: { '@type': 'AdministrativeArea', name: "France" },
-        sameAs: [
-            'https://github.com/symios',
-            'https://www.linkedin.com/company/symios'
-        ]
-    };
+	const SITE_NAME = 'Symios';
+	const DEFAULT_TITLE = "Symios | Agents IA sur-mesure";
+	const DEFAULT_DESCRIPTION = "Je conçois, déploie et documente des agents IA sur-mesure pour les entreprises. Audit, architecture, déploiement — livré avec sa documentation.";
+	const OG_IMAGE = `${SITE_URL}/images/icon.png`;
+
+	let canonical = $derived(`${SITE_URL}${page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')}`);
+
+	// Per-page title: use page-level <svelte:head> if set, otherwise fallback
+	let pageTitle = $derived(page.url.pathname.includes('contact') ? 'Contact | Symios' :
+		page.url.pathname.includes('shop/checkout/success') ? 'Paiement réussi | Symios' :
+		page.url.pathname.includes('shop/checkout') ? 'Paiement | Symios' :
+		page.url.pathname.includes('shop') ? 'Boutique | Symios' :
+		page.url.pathname.includes('blog') ? 'Blog | Symios' :
+		page.url.pathname.includes('account') ? 'Mon compte | Symios' :
+		page.url.pathname.includes('admin') ? 'Admin | Symios' :
+		DEFAULT_TITLE
+	);
+
+	let pageDesc = $derived(
+		page.url.pathname.includes('contact') ? "Contactez Symios — Elias Treguier. Téléphone, email, GitHub, LinkedIn." :
+		page.url.pathname.includes('shop') ? "Abonnements, forfaits, heures, formations et ressources IA." :
+		page.url.pathname.includes('blog') ? "Articles, guides et réflexions autour des agents IA, de l'automatisation et du déploiement." :
+		page.url.pathname.includes('account') ? "Connectez-vous ou créez votre compte Symios." :
+		page.url.pathname.includes('admin') ? "Administration Symios." :
+		DEFAULT_DESCRIPTION
+	);
+
+	const JSONLD = {
+		'@context': 'https://schema.org',
+		'@type': 'ProfessionalService',
+		name: SITE_NAME,
+		url: SITE_URL,
+		image: OG_IMAGE,
+		description: DEFAULT_DESCRIPTION,
+		priceRange: '€€–€€€',
+		address: { '@type': 'PostalAddress', addressCountry: 'FR' },
+		areaServed: { '@type': 'AdministrativeArea', name: "France" },
+		sameAs: [
+			'https://github.com/symios',
+			'https://www.linkedin.com/company/symios'
+		]
+	};
 </script>
 
 <svelte:head>
-    <title>{DEFAULT_TITLE}</title>
-    <meta name="description" content={DEFAULT_DESCRIPTION}>
-    <link rel="canonical" href={canonical}>
-    <meta name="author" content={SITE_NAME}>
-    <meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDesc}>
+	<link rel="canonical" href={canonical}>
+	<meta name="author" content={SITE_NAME}>
+	<meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
+	<meta name="robots" content="index, follow">
 
-    <link rel="icon" type="image/webp" sizes="180x180" href="/images/favicon.png">
-    <link rel="shortcut icon" href="/images/favicon.ico">
-    <link rel="apple-touch-icon" href="/images/icon.png">
+	<link rel="icon" type="image/webp" sizes="180x180" href="{base}/images/favicon.png">
+	<link rel="shortcut icon" href="{base}/images/favicon.ico">
+	<link rel="apple-touch-icon" href="{base}/images/icon.png">
 
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:site_name" content={SITE_NAME}>
-    <meta property="og:title" content={DEFAULT_TITLE}>
-    <meta property="og:description" content={DEFAULT_DESCRIPTION}>
-    <meta property="og:url" content={canonical}>
-    <meta property="og:image" content={OG_IMAGE}>
-    <meta property="og:image:alt" content="Symios — Intégrateur IA">
+	<!-- Preconnect for font loading -->
+	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+	<link rel="preconnect" href="https://www.symios.com">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content={DEFAULT_TITLE}>
-    <meta name="twitter:description" content={DEFAULT_DESCRIPTION}>
-    <meta name="twitter:image" content={OG_IMAGE}>
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="fr_FR">
+	<meta property="og:site_name" content={SITE_NAME}>
+	<meta property="og:title" content={pageTitle}>
+	<meta property="og:description" content={pageDesc}>
+	<meta property="og:url" content={canonical}>
+	<meta property="og:image" content={OG_IMAGE}>
+	<meta property="og:image:alt" content="Symios — Intégrateur IA">
 
-    <link rel="preload" as="image" href="/images/Boutique.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content={pageTitle}>
+	<meta name="twitter:description" content={pageDesc}>
+	<meta name="twitter:image" content={OG_IMAGE}>
 
-    {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</` + `script>`}
+	<!-- Preload hero image -->
+	<link rel="preload" as="image" href="{base}/images/Boutique.png" fetchpriority="high">
+
+	{@html `<script type="application/ld+json">${JSON.stringify(JSONLD)}</` + `script>`}
 </svelte:head>
 
-<header>
-	<a href="/"><img src="/images/logo.png" height="80px" alt="SYMIOS"></a>
-	<nav>
-		<a href="/services">services</a>
-		<a href="/shop">shop</a>
-		<a href="/blog">blog</a>
-		<a href="/ressources">ressources</a>
-		<a href="/contact">contact</a>
-		<a href="/project" class="cta">démmarer un projet</a>
+<!-- Skip-to-content link -->
+<a href="#main-content" class="skip-link">Aller au contenu</a>
+
+<header class="site-header">
+	<a href={base}><img src="{base}/images/logo.png" alt="SYMIOS" width="120" height="80"></a>
+	<!-- Desktop nav -->
+	<nav class="desktop-nav" aria-label="Navigation principale">
+		<a href="{base}/services">services</a>
+		<a href="{base}/shop">shop</a>
+		<a href="{base}/blog">blog</a>
+		<a href="{base}/ressources">ressources</a>
+		<a href="{base}/contact">contact</a>
+		{#if data.isAdmin}
+			<a href="{base}/admin">admin</a>
+		{/if}
+		<a href="{base}/project" class="cta">démarrer un projet</a>
 	</nav>
+	<!-- Mobile toggle -->
+	<button class="mobile-toggle no-print" aria-label="Menu" aria-expanded={mobileNavOpen} onclick={() => (mobileNavOpen = !mobileNavOpen)}>
+		<span class="hamburger-line" class:open={mobileNavOpen}></span>
+	</button>
 </header>
+
+{#if mobileNavOpen}
+	<!-- Mobile nav overlay -->
+	<nav class="mobile-nav no-print" aria-label="Navigation mobile">
+		<a href="{base}/services" onclick={() => (mobileNavOpen = false)}>services</a>
+		<a href="{base}/shop" onclick={() => (mobileNavOpen = false)}>shop</a>
+		<a href="{base}/blog" onclick={() => (mobileNavOpen = false)}>blog</a>
+		<a href="{base}/ressources" onclick={() => (mobileNavOpen = false)}>ressources</a>
+		<a href="{base}/contact" onclick={() => (mobileNavOpen = false)}>contact</a>
+		{#if data.isAdmin}
+			<a href="{base}/admin" onclick={() => (mobileNavOpen = false)}>admin</a>
+		{/if}
+		<a href="{base}/project" class="cta" onclick={() => (mobileNavOpen = false)}>démarrer un projet</a>
+	</nav>
+{/if}
+
 <div class="subheader">
 	<span>
-		<a href="#"><u>github</u></a> x
-		<a href="#"><u>youtube</u></a> x
-		<a href="#"><u>instagram</u></a>
+		<a href="https://github.com/symios" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><u>github</u></a> x
+		<a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><u>youtube</u></a> x
+		<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a>
 	</span>
-    <span class="account-links">
-        {#if data.cartCount > 0}
-            <a href="/account#panier"><u>panier ({data.cartCount})</u></a> x
-        {/if}
-        <a href="/account"><u>mon compte →</u></a>
-    </span>
+	<span class="account-links">
+		{#if data.cartCount > 0}
+			<a href="{base}/account#panier"><u>panier ({data.cartCount})</u></a>&nbsp;x&nbsp;
+		{/if}
+		<a href="{base}/account"><u>mon compte →</u></a>
+	</span>
 </div>
 
-<main use:scrollSpeed>
+<main id="main-content" use:scrollSpeed>
 	{@render children()}
 </main>
-<br>
-<footer>
-    <a href="/"><img src="/images/logo.png" height="100px" alt="SYMIOS"></a>
-    <div class="usefull-links">
-        <span>
-            <p style="color:var(--accent)">NAVIGUER</p>
-            <a href="/">Accueil</a>
-            <a href="/shop">Services</a>
-            <a href="/blog">Blog</a>
-        </span>
-        <span>
-            <p style="color:var(--accent)">SUIVRE</p>
-            <a href="/">GitHub</a>
-            <a href="/">LinkedIn</a>
-            <a href="/">RSS</a>
-        </span>
-    </div>
+
+<footer class="site-footer">
+	<a href={base}><img src="{base}/images/logo.png" alt="SYMIOS" width="150" height="100"></a>
+	<div class="usefull-links">
+		<span>
+			<p style="color:var(--accent)">NAVIGUER</p>
+			<a href={base}>Accueil</a>
+			<a href="{base}/shop">Services</a>
+			<a href="{base}/blog">Blog</a>
+		</span>
+		<span>
+			<p style="color:var(--accent)">SUIVRE</p>
+			<a href="https://github.com/symios" target="_blank" rel="noopener noreferrer">GitHub</a>
+			<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+			<a href="/" target="_blank" rel="noopener noreferrer">RSS</a>
+		</span>
+	</div>
 </footer>
 <footer class="subfooter">
-    <span>© {new Date().getFullYear()} symios — fait par hellios</span>
-    <span>open-source friendly · <a>CGV</a> · <a>GGU</a> · <a>Mentions légales</a></span>
+	<span>© {new Date().getFullYear()} symios — fait par hellios</span>
+	<span>open-source friendly · <a href="{base}/cgv">CGV</a> · <a href="{base}/cgu">CGU</a> · <a href="{base}/mentions-legales">Mentions légales</a></span>
 </footer>
 
 <style>
-	.subheader{
+	.subheader {
 		background-color: var(--primary);
-		color:var(--text-ondark);
+		color: var(--text-ondark);
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		padding: 1.2rem max(1.2rem, calc((100% - 1440px) / 2));
-		font-size:14px;
+		font-size: 14px;
 		font-family: "details", serif;
 		text-transform: uppercase;
 	}
-    .subheader > span{
-        display: flex;
-        gap:1.5rem;
-    }
-    .account-links{
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-    }
-    .subfooter{
-        background-color: var(--primary);
-        color: var(--text-muted, #8a7d63);
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        padding: 1.1rem max(1.2rem, calc((100% - 1440px) / 2));
-        border-top: 1px solid #4a3a28;
-        font-size: 11px;
-        letter-spacing: .1em;
-        font-family: "details", monospace;
-        text-transform: uppercase;
-    }
-    .usefull-links{
-        color: var(--text-ondark);
-        display:flex;
-        gap:2rem;
-    }
-    .usefull-links > span {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+	.subheader > span {
+		display: flex;
+		gap: 1.5rem;
+		align-items: center;
+	}
+	.account-links {
+		display: flex;
+		gap: 1.5rem;
+		align-items: center;
+	}
+	.subfooter {
+		background-color: var(--primary);
+		color: var(--text-muted);
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		padding: 1.1rem max(1.2rem, calc((100% - 1440px) / 2));
+		border-top: 1px solid #4a3a28;
+		font-size: 11px;
+		letter-spacing: .1em;
+		font-family: "details", monospace;
+		text-transform: uppercase;
+	}
+	.usefull-links {
+		color: var(--text-ondark);
+		display: flex;
+		gap: 2rem;
+	}
+	.usefull-links > span {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
 
+	/* ── Mobile hamburger ── */
+	.desktop-nav {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+	}
+	.mobile-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 8px;
+		z-index: 200;
+	}
+	.hamburger-line,
+	.hamburger-line::before,
+	.hamburger-line::after {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background: var(--primary);
+		border-radius: 2px;
+		transition: transform 0.3s, opacity 0.3s;
+	}
+	.hamburger-line {
+		position: relative;
+	}
+	.hamburger-line::before,
+	.hamburger-line::after {
+		content: '';
+		position: absolute;
+		left: 0;
+	}
+	.hamburger-line::before { top: -8px; }
+	.hamburger-line::after { top: 8px; }
+	.hamburger-line.open {
+		background: transparent;
+	}
+	.hamburger-line.open::before {
+		transform: translateY(8px) rotate(45deg);
+	}
+	.hamburger-line.open::after {
+		transform: translateY(-8px) rotate(-45deg);
+	}
+
+	.mobile-nav {
+		position: fixed;
+		inset: 0;
+		z-index: 150;
+		background: var(--background);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		font-family: "subtext", serif;
+		font-size: 18px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		animation: symios-fadein 0.2s ease-out;
+	}
+	.mobile-nav .cta {
+		font-size: 14px;
+		margin-top: 1rem;
+	}
+
+	@keyframes symios-fadein {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	/* ── Responsive ── */
+	@media (max-width: 760px) {
+		.desktop-nav { display: none; }
+		.mobile-toggle { display: block; }
+		.subheader { font-size: 11px; padding: 0.8rem 1.2rem; }
+		.subheader > span { gap: 0.8rem; flex-wrap: wrap; }
+	}
+
+	@media print {
+		.no-print { display: none; }
+	}
 </style>

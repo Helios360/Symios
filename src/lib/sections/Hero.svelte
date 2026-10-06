@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { parallax } from '$lib/motion/parallax';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
@@ -32,27 +33,29 @@
 				<span class="term-dot term-dot--green"></span>
 				<span class="term-title mono-alt">symios:~$</span>
 			</div>
-			<p class="section-index">// MISSION 001 — Déploiement IA</p>
+			<p class="section-index">// 001 — Prestation IA</p>
 			<p class="hero-desc">
-				Hellios conçoit, déploie et documente des agents IA sur-mesure
-				pour les entreprises qui migrent. En abonnement, au forfait, ou
-				à l'heure — toujours livré avec sa doc.
+				Je conçois, déploie et documente des agents IA sur-mesure
+				pour les entreprises qui souhaitent avancer. En abonnement, au forfait, ou
+				à l'heure — toujours livré avec sa documentation.
 			</p>
 			<div class="button-container">
-				<a href="/project" class="cta">Démarrer un projet →</a>
-				<a href="/catalogue" class="cta-light">Voir le catalogue</a>
+				<a href="{base}/project" class="cta">Démarrer un projet →</a>
+				<a href="{base}/catalogue" class="cta-light">Voir le catalogue</a>
 			</div>
 		</div>
 	</div>
 </section>
 
 <style>
-	/* ── Layout ── */
 	.hero-section {
 		min-height: calc(100vh - 62px);
-		padding: 2rem;
+		padding: 2rem 3rem;
 		position: relative;
 		z-index: 10;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 	}
 
 	.terminal-title {
@@ -63,7 +66,7 @@
 		z-index: 100;
 		will-change: transform;
 	}
-	
+
 	.terminal-desc {
 		max-width: 600px;
 		position: absolute;
@@ -71,13 +74,14 @@
 		top: 40px;
 		will-change: transform;
 	}
-	@media screen and (max-width:1636px){
-		.terminal-title{
+
+	@media screen and (max-width: 1636px) {
+		.terminal-title {
 			max-width: 60%;
-			left:5%;
+			left: 5%;
 		}
 		.terminal-desc {
-			right:5%;
+			right: 5%;
 		}
 	}
 
@@ -91,7 +95,6 @@
 		transform-style: preserve-3d;
 	}
 
-	/* ── Title inside first terminal ── */
 	h1 {
 		font-family: 'artistic', serif;
 		font-weight: 800;
@@ -107,7 +110,6 @@
 		color: var(--accent);
 	}
 
-	/* ── Content inside second terminal ── */
 	.section-index {
 		padding: 1.2rem 1rem 0;
 		color: var(--accent);
@@ -130,18 +132,50 @@
 		gap: 1rem;
 	}
 
-	/* ── Button overrides for dark terminal bg ── */
 	.button-container :global(.cta) {
 		border-color: var(--text-ondark);
 		box-shadow: 3px 3px 0 0 var(--text-ondark);
 	}
-
 	.button-container :global(.cta):hover {
 		box-shadow: 5px 5px 0 0 var(--text-ondark);
 	}
-
 	.button-container :global(.cta-light) {
 		color: var(--text-ondark);
 		border-color: var(--text-ondark);
+	}
+
+	/* ── Responsive: stack terminal panels vertically on mobile */
+	@media (max-width: 760px) {
+		.hero-section {
+			min-height: auto;
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			position: relative;
+		}
+		.terminal-title,
+		.terminal-desc {
+			position: relative;
+			top: auto;
+			left: auto;
+			right: auto;
+			max-width: 100%;
+			will-change: auto;
+		}
+		h1 {
+			font-size: clamp(32px, 8vw, 50px);
+			padding: 0.8rem;
+		}
+		.hero-desc {
+			font-size: 14px;
+			max-width: 100%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.terminal-wrapper {
+			will-change: auto;
+		}
 	}
 </style>

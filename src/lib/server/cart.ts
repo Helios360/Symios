@@ -5,7 +5,7 @@ import { pool } from './db';
  * Logique de panier — réservée aux utilisateurs authentifiés.
  *
  * Un utilisateur possède au plus un panier `pending` (le panier « en cours »).
- * Une fois validé il passe en `completed` (ou `cancelled`) et rejoint
+ * Une fois payé via Stripe il passe en `completed` (ou `cancelled`) et rejoint
  * l'historique. `cart_items.unit_price` stocke le total de la ligne
  * (quantité × parts × prix de l'article).
  */
@@ -31,6 +31,7 @@ export type Cart = {
 	status: CartStatus;
 	delivery_date: string | null;
 	customer_message: string | null;
+	stripe_session_id: string | null;
 	items: CartItem[];
 	total: number;
 };
@@ -69,6 +70,7 @@ function hydrate(row: any, items: CartItem[]): Cart {
 		status: row.status,
 		delivery_date: row.delivery_date ?? null,
 		customer_message: row.customer_message ?? null,
+		stripe_session_id: row.stripe_session_id ?? null,
 		items,
 		total: items.reduce((sum, it) => sum + it.unit_price, 0)
 	};
@@ -182,18 +184,58 @@ export async function clearActiveCart(userId: string): Promise<void> {
 }
 
 /**
- * Valide le panier en cours : fige le total et le passe en `completed`.
- * Renvoie l'id du panier validé, ou `null` s'il n'y avait rien à valider.
+ * Met à jour les infos de livraison sur le panier en cours.
  */
-export async function checkout(userId: string): Promise<string | null> {
-	const cart = await getActiveCart(userId);
-	if (!cart || cart.items.length === 0) return null;
+export async function setDeliveryInfo(
+	userId: string,
+	deliveryDate: string | null,
+	customerMessage: string | null
+): Promise<void> {
+	await pool.query(
+		`UPDATE carts SET delivery_date = ?, customer_message = ? WHERE user_id = ? AND status = 'pending'`,
+		[deliveryDate, customerMessage, userId]
+	);
+}
+
+/**
+ * Associe un Stripe Checkout Session ID au panier en cours, avant de rediriger
+ * l'utilisateur vers Stripe.
+ */
+export async function attachStripeSession(
+	userId: string,
+	stripeSessionId: string
+): Promise<void> {
+	await pool.query(
+		`UPDATE carts SET stripe_session_id = ? WHERE user_id = ? AND status = 'pending'`,
+		[stripeSessionId, userId]
+	);
+}
+
+/**
+ * Valide le panier Stripe (appelé par le webhook après paiement réussi).
+ * Fige le total et le passe en `completed`.
+ * Renvoie l'id du panier validé, ou `null` s'il n'a pas été trouvé.
+ */
+export async function confirmStripePayment(stripeSessionId: string): Promise<string | null> {
+	const cart = await getCartByStripeSession(stripeSessionId);
+	if (!cart || cart.status !== 'pending') return null;
 
 	await pool.query(
-		`UPDATE carts SET total_amount = ?, status = 'completed' WHERE id = ? AND user_id = ?`,
-		[cart.total, cart.id, userId]
+		`UPDATE carts SET total_amount = ?, status = 'completed' WHERE id = ?`,
+		[cart.total, cart.id]
 	);
 	return cart.id;
+}
+
+/** Charge un panier via son stripe_session_id. */
+async function getCartByStripeSession(stripeSessionId: string): Promise<Cart | null> {
+	const [rows] = await pool.query(
+		`SELECT * FROM carts WHERE stripe_session_id = ? LIMIT 1`,
+		[stripeSessionId]
+	);
+	const row = (rows as any[])[0];
+	if (!row) return null;
+	return hydrate(row, await loadItems(row.id));
 }
 
 /** Historique : paniers validés/annulés de l'utilisateur, avec leurs lignes. */

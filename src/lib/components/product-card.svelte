@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { reveal } from '$lib/motion/reveal';
 	import { float } from '$lib/motion/float';
@@ -11,7 +12,7 @@
 		action = '?/addToCart',
 		authenticated = false,
 		index = 0
-	}: { article: Article; action?: string; authenticated?: boolean; index?: number } = $props();
+	}: { article: Article; action?: string; authenticated: boolean; index: number } = $props();
 
 	const euro = new Intl.NumberFormat('fr-FR', {
 		style: 'currency',
@@ -64,7 +65,7 @@
 					<button type="submit" class="cta" class:added>{added ? 'ajouté ✓' : '+ panier'}</button>
 				</form>
 			{:else}
-				<a href="/account" class="cta" title="Connectez-vous pour commander">connexion →</a>
+				<a href="{base}/account" class="cta" title="Connectez-vous pour commander">connexion →</a>
 			{/if}
 		</div>
 	</div>

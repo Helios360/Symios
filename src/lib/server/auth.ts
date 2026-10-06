@@ -11,12 +11,24 @@ export const auth = betterAuth({
 	database: pool,
 	trustedOrigins,
 	emailAndPassword: { enabled: true },
+	basePath: '/symios/api/auth',
+	baseURL: {
+		url: env.BETTER_AUTH_URL || 'http://localhost:3000',
+		// Tell better-auth the public-facing protocol is HTTPS
+		protocol: 'https',
+		allowedHosts: ['localhost:3000', 'localhost:3001', '192.168.1.75:3001', 'helli0s.ddns.net']
+	},
+	advanced: {
+		// Internal access is HTTP — don't use __Secure- cookie prefix
+		useSecureCookies: false
+	},
 	user: {
 		additionalFields: {
 			phone: { type: 'string', required: true },
 			fname: { type: 'string', required: false },
 			address: { type: 'string', required: false },
-			city: { type: 'string', required: false }
+			city: { type: 'string', required: false },
+			role: { type: 'number', required: false, input: false }
 		},
 		deleteUser: { enabled: true },
 		changeEmail: { enabled: true }

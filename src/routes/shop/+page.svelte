@@ -37,7 +37,7 @@
 	<p class="section-index">// LA BOUTIQUE</p>
 	<h1>TOUT LE<br />CATALOGUE</h1>
 	<p>
-		Abonnements, forfaits, heures, formations et ressources — chaque ligne repart documentée.<br />
+		Abonnements, forfaits, heures, formations et ressources — chaque fiche repart avec sa documentation.<br />
 		Cherchez, triez, ajoutez au panier.
 	</p>
 </section>

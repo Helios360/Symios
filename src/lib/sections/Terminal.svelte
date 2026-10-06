@@ -10,12 +10,12 @@
 
 	const terminalLines = [
 		'> symios init --client',
-		'✓ audit des systèmes legacy',
-		'✓ architecture agent définie',
-		'✓ modèles sélectionnés',
-		'✓ déploiement CI/CD configuré',
-		'✓ tests passés (12/12)',
-		'✓ documentation générée',
+		'✓ système audité',
+		'✓ architecture calée',
+		'✓ modèles choisis',
+		'✓ CI/CD prêt',
+		'✓ tests verts (12/12)',
+		'✓ doc livrée',
 		'> livraison : 14 jours ouvrés',
 		'symios:~$'
 	];
@@ -64,11 +64,11 @@
 
 <section class="terminal-section" bind:this={sectionEl} use:reveal>
 	<div class="terminal-col-left" use:float={{ amp: 5, period: 3.5, phase: 1 }}>
-		<p class="section-index">// MISSION 004 — Console</p>
+		<p class="section-index">// 003 — Console</p>
 		<h2>Un agent,<br />une console</h2>
 		<p class="terminal-desc">
-			Chaque mission commence par un terminal ouvert.
-			Écoute, analyse, exécution — pas d'interface superflue.
+			Chaque projet commence par un terminal ouvert.
+			Nous écoutons, nous analysons, nous exécutons — pas d'interface superflue.
 		</p>
 	</div>
 	<div class="terminal-col-right" use:float={{ amp: 6, period: 3, phase: 0 }}>
@@ -158,5 +158,14 @@
 		background: #e0982f;
 		vertical-align: -2px;
 		animation: symios-blink 1.1s steps(1, end) infinite;
+	}
+	@media (max-width:670px){
+		.terminal-section{
+			display:flex; 
+			flex-direction:column;
+		}
+		.terminal-col-right{
+			width:100%;
+		}
 	}
 </style>

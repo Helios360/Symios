@@ -6,7 +6,6 @@
 	import Hero from '$lib/sections/Hero.svelte';
 	import Marquee from '$lib/sections/Marquee.svelte';
 	import Stats from '$lib/sections/Stats.svelte';
-	import Manifesto from '$lib/sections/Manifesto.svelte';
 	import Catalogue from '$lib/sections/Catalogue.svelte';
 	import Terminal from '$lib/sections/Terminal.svelte';
 	import Protocol from '$lib/sections/Protocol.svelte';
@@ -20,21 +19,15 @@
 	});
 </script>
 
-<svelte:head>
-	<link rel="preload" as="image" href="/images/Boutique.png" />
-</svelte:head>
-
 <div class="page-wrapper">
-	<!-- Three.js canvases — only rendered client-side -->
 	{#if showShapes}
 		{#await import('$lib/three/ShapeField.svelte')}
-			<!-- loading — keep space reserved -->
+			<div class="shape-placeholder" aria-hidden="true"></div>
 		{:then ShapeField}
 			<ShapeField.default />
 		{/await}
 	{/if}
 
-	<!-- Content wrapper — sits above shape backgrounds -->
 	<div class="content-layer">
 		<Hero />
 		<Marquee />
@@ -46,7 +39,6 @@
 				{ number: '24/7', title: 'Support', value: 24 }
 			]}
 		/>
-		<Manifesto />
 		<Catalogue
 			modules={data.showcase.map((a) => ({
 				id: a.id,

@@ -22,7 +22,7 @@ function requireUser(locals: App.Locals) {
 
 async function readProfile(id: string) {
 	const [rows] = await pool.query(
-		`SELECT id, name, email, fname, phone, address, city, createdAt
+		`SELECT id, name, email, fname, phone, address, city, role, createdAt
 		 FROM user WHERE id = ? LIMIT 1`,
 		[id]
 	);

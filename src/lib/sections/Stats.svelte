@@ -11,8 +11,8 @@
 <section class="stats-section" use:reveal>
 	<div class="stats-inner">
 		{#each stats as stat, i}
-			<div class="stat" class:stat-first={i === 0} class:stat-last={i === stats.length - 1} use:float={{ amp: 4, period: 3.3, phase: i * 1.2 }}>
-				<span class="stat-number" use:countUp={{ to: stat.value, suffix: stat.number.replace(/[\d,.\s]/g, '') }}>
+			<div class="stat" class:stat-first={i === 0} class:stat-last={i === stats.length - 1}>
+				<span class="stat-number" use:float={{ amp: 4, period: 3.3, phase: i * 1.2 }} use:countUp={{ to: stat.value, suffix: stat.number.replace(/[\d,.\s]/g, '') }}>
 					{stat.number}
 				</span>
 				<span class="stat-label mono-alt">{stat.title}</span>
@@ -67,5 +67,15 @@
 		opacity: 0.8;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
+	}
+	@media (max-width:702px){
+		.stats-inner{
+			display: flex;
+			flex-direction:column;
+		}
+		.stat{
+			padding: 2rem;
+			border-top: 1px solid var(--text-muted);
+		}
 	}
 </style>

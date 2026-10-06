@@ -224,29 +224,36 @@ import { onDestroy } from 'svelte';
 	}
 
 	.shape-tl {
-		left: -11vw;
+		left: 0;
 		top: -9vw;
-		width: 44vw;
+		width: 33vw;
 		height: 44vw;
 		z-index: 0;
 		opacity: 0.62;
 	}
 
 	.shape-mid {
-		right: -7vw;
+		right: 0;
 		top: 10vh;
-		width: 30vw;
+		width: 23vw;
 		height: 30vw;
 		z-index: 2;
 		opacity: 0.9;
 	}
 
 	.shape-br {
-		right: -13vw;
+		right: 0;
 		bottom: -20vw;
-		width: 62vw;
+		width: 49vw;
 		height: 62vw;
 		z-index: 40;
 		opacity: 1;
+	}
+
+	/* ── Hide shapes entirely on narrow screens ── */
+	@media (max-width: 850px) {
+		.shape-field {
+			display: none;
+		}
 	}
 </style>

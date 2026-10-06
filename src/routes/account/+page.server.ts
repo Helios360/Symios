@@ -4,8 +4,7 @@ import {
 	getActiveCart,
 	getCartHistory,
 	removeItem,
-	clearActiveCart,
-	checkout
+	clearActiveCart
 } from '$lib/server/cart';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -14,7 +13,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const [profileRows, cart, history] = await Promise.all([
 		pool.query(
-			`SELECT id, name, email, fname, phone, address, city, createdAt
+			`SELECT id, name, email, fname, phone, address, city, role, createdAt
 			 FROM user WHERE id = ? LIMIT 1`,
 			[locals.user.id]
 		),
@@ -43,12 +42,5 @@ export const actions: Actions = {
 		if (!locals.user) return fail(401, { error: 'Authentification requise' });
 		await clearActiveCart(locals.user.id);
 		return { ok: true };
-	},
-
-	checkout: async ({ locals }) => {
-		if (!locals.user) return fail(401, { error: 'Authentification requise' });
-		const cartId = await checkout(locals.user.id);
-		if (!cartId) return fail(400, { error: 'Votre panier est vide' });
-		return { checkedOut: true };
 	}
 };

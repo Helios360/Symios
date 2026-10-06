@@ -4,7 +4,7 @@
 </script>
 
 <section class="marquee-section" use:reveal>
-	<div class="marquee-track" use:float={{ amp: 3, period: 4, phase: 1 }}>
+	<div class="marquee-track">
 		<div class="marquee-content">
 			<span class="marquee-item">agents IA sur-mesure</span>
 			<span class="marquee-dot">✦</span>
