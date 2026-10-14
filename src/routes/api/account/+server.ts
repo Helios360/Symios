@@ -1,7 +1,5 @@
 import { json, error } from '@sveltejs/kit';
-import { APIError } from 'better-auth/api';
 import { pool } from '$lib/server/db';
-import { auth } from '$lib/server/auth';
 import {
 	validateName,
 	validatePhone,
@@ -89,6 +87,10 @@ export const DELETE: RequestHandler = async ({ locals, request }) => {
 		// corps optionnel
 	}
 	if (!password) throw error(400, 'Mot de passe requis pour supprimer le compte');
+
+	// Lazy-import auth to avoid BetterAuthError during SSR build
+	const { APIError } = await import('better-auth/api');
+	const { auth } = await import('$lib/server/auth');
 
 	try {
 		await auth.api.deleteUser({ headers: request.headers, body: { password } });
