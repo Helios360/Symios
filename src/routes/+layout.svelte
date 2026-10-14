@@ -62,8 +62,8 @@
 	<meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
 	<meta name="robots" content="index, follow">
 
-	<link rel="icon" type="image/webp" sizes="180x180" href="{base}/images/favicon.png">
-	<link rel="shortcut icon" href="{base}/images/favicon.ico">
+	<link rel="icon" type="image/png" sizes="180x180" href="{base}/images/favicon.png">
+	<link rel="shortcut icon" href="{base}/images/favicon.png">
 	<link rel="apple-touch-icon" href="{base}/images/icon.png">
 
 	<!-- Preconnect for font loading -->
@@ -131,8 +131,8 @@
 <div class="subheader">
 	<span>
 		<a href="https://github.com/symios" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><u>github</u></a> x
-		<a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><u>youtube</u></a> x
-		<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a>
+		<a href="https://youtube.com/@symios" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><u>youtube</u></a> x
+		<a href="https://instagram.com/symios" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a>
 	</span>
 	<span class="account-links">
 		{#if data.cartCount > 0}
@@ -152,14 +152,14 @@
 		<span>
 			<p style="color:var(--accent)">NAVIGUER</p>
 			<a href={base}>Accueil</a>
-			<a href="{base}/shop">Services</a>
+			<a href="{base}/services">Services</a>
 			<a href="{base}/blog">Blog</a>
 		</span>
 		<span>
 			<p style="color:var(--accent)">SUIVRE</p>
 			<a href="https://github.com/symios" target="_blank" rel="noopener noreferrer">GitHub</a>
-			<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-			<a href="/" target="_blank" rel="noopener noreferrer">RSS</a>
+			<a href="https://www.linkedin.com/company/symios" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+			<a href="/" target="_blank" rel="noopener noreferrer" aria-label="RSS">RSS</a>
 		</span>
 	</div>
 </footer>
@@ -204,6 +204,8 @@
 		letter-spacing: .1em;
 		font-family: "details", monospace;
 		text-transform: uppercase;
+		position:relative;
+		z-index: 50;
 	}
 	.usefull-links {
 		color: var(--text-ondark);

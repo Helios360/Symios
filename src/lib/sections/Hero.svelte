@@ -41,7 +41,7 @@
 			</p>
 			<div class="button-container">
 				<a href="{base}/project" class="cta">Démarrer un projet →</a>
-				<a href="{base}/catalogue" class="cta-light">Voir le catalogue</a>
+				<a href="{base}/shop" class="cta-light">Voir le catalogue</a>
 			</div>
 		</div>
 	</div>
