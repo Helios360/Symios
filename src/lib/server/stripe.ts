@@ -5,7 +5,7 @@ import { building } from '$app/environment';
 // Don't initialize Stripe during the build step (no env vars available).
 export const stripe = building
 	? (null as unknown as Stripe)
-	: new Stripe(STRIPE_PRIVATE_KEY, { apiVersion: '2025-02-24.acacia' });
+	: new Stripe(STRIPE_PRIVATE_KEY, { apiVersion: '2026-08-26.dahlia' });
 
 export interface CreateCheckoutParams {
 	cartId: string;
