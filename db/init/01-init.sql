@@ -13,32 +13,9 @@ CREATE TABLE articles (
     details_html TEXT NULL,
     CONSTRAINT category_fk FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-CREATE TABLE carts (
-    id VARCHAR(36) PRIMARY KEY,
-    user_id VARCHAR(36) NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
-    status ENUM('cancelled', 'pending', 'completed') NOT NULL DEFAULT 'pending',
-    customer_message TEXT NULL,
-    photos_folder VARCHAR(255) NULL,
-    delivery_date DATETIME NULL,
-    stripe_session_id VARCHAR(255) NULL,
-    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL
-);
-CREATE TABLE cart_items (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    cart_id VARCHAR(36) NOT NULL,
-    article_id INT NOT NULL,
-    slices INT NOT NULL CHECK (slices >= 1),
-    quantity INT NOT NULL CHECK (quantity >= 1),
-    unit_price DECIMAL(10,2) NOT NULL,
-    CONSTRAINT cart_items_cart_fk FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
-    CONSTRAINT cart_items_article_fk FOREIGN KEY (article_id) REFERENCES articles(id)
-);
 
 -- Better Auth tables (user, session, account, verification)
--- These were previously created at runtime by better-auth but are now
--- defined here so Docker init includes them + the custom `role` column.
+-- Must come BEFORE carts/auth tables that reference user(id).
 
 CREATE TABLE IF NOT EXISTS user (
     id VARCHAR(36) PRIMARY KEY NOT NULL,
@@ -91,6 +68,29 @@ CREATE TABLE IF NOT EXISTS verification (
     expiresAt TIMESTAMP NOT NULL,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE carts (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    status ENUM('cancelled', 'pending', 'completed') NOT NULL DEFAULT 'pending',
+    customer_message TEXT NULL,
+    photos_folder VARCHAR(255) NULL,
+    delivery_date DATETIME NULL,
+    stripe_session_id VARCHAR(255) NULL,
+    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL
+);
+CREATE TABLE cart_items (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cart_id VARCHAR(36) NOT NULL,
+    article_id INT NOT NULL,
+    slices INT NOT NULL CHECK (slices >= 1),
+    quantity INT NOT NULL CHECK (quantity >= 1),
+    unit_price DECIMAL(10,2) NOT NULL,
+    CONSTRAINT cart_items_cart_fk FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+    CONSTRAINT cart_items_article_fk FOREIGN KEY (article_id) REFERENCES articles(id)
 );
 
 CREATE TABLE IF NOT EXISTS blog_posts (
