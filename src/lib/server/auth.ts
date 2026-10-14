@@ -16,7 +16,7 @@ export const auth = betterAuth({
 		url: env.BETTER_AUTH_URL || 'http://localhost:3000',
 		// Tell better-auth the public-facing protocol is HTTPS
 		protocol: 'https',
-		allowedHosts: ['localhost:3000', 'localhost:3001', 'localhost:5173', '192.168.1.75:3001', 'helli0s.ddns.net']
+		allowedHosts: ['localhost:3000', 'localhost:3001', 'localhost:5173', '192.168.1.75:3001', 'helli0s.ddns.net', 'symios.fr']
 	},
 	advanced: {
 		// Internal access is HTTP — don't use __Secure- cookie prefix
