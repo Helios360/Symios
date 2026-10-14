@@ -225,25 +225,25 @@ import { onDestroy } from 'svelte';
 
 	.shape-tl {
 		left: 0;
-		top: -9vw;
-		width: 33vw;
+		top: -20vh;
+		width: 36vw;
 		height: 44vw;
-		z-index: 0;
+		z-index: -1;
 		opacity: 0.62;
 	}
 
 	.shape-mid {
-		right: 0;
+		right: 10vw;
 		top: 10vh;
 		width: 23vw;
 		height: 30vw;
-		z-index: 2;
+		z-index: -1;
 		opacity: 0.9;
 	}
 
 	.shape-br {
-		right: 0;
-		bottom: -20vw;
+		right: -10vw;
+		bottom: -40vh;
 		width: 49vw;
 		height: 62vw;
 		z-index: 40;

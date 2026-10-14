@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: symios-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symios
+      MYSQL_USER: symios
+      MYSQL_PASSWORD: symios
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: symios-app-dev
+    container_name: symios-app-dev
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    env_file: .env
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: "mysql://symios:symios@mysql:3306/symios"
+      BETTER_AUTH_URL: "http://localhost:5173"
+      BETTER_AUTH_TRUSTED_ORIGINS: "http://localhost:5173"
+      ORIGIN: "http://localhost:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    working_dir: /app
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql-data:
