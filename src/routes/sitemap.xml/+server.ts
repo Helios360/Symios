@@ -37,7 +37,7 @@ export const GET: RequestHandler = async () => {
 	const articleUrls = articles
 		.map(
 			(slug) => `<url>
-		<loc>${SITE_URL}/shop</loc>
+		<loc>${SITE_URL}/shop/${slug}</loc>
 		<priority>0.8</priority>
 		<changefreq>monthly</changefreq>
 	</url>`
