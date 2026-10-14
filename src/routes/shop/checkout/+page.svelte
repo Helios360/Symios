@@ -16,7 +16,7 @@
 
 	async function saveDeliveryInfo() {
 		saving = true;
-		await fetch('/symios/shop/checkout?/setDelivery', {
+		await fetch(`${base}/shop/checkout?/setDelivery`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/x-www-form-urlencoded' },
 			body: new URLSearchParams({

@@ -31,7 +31,7 @@ export const actions: Actions = {
 		return { ok: true };
 	},
 
-	checkout: async ({ locals, request }) => {
+	checkout: async ({ locals, request, url }) => {
 		if (!locals.user) return fail(401, { error: 'Authentification requise' });
 
 		const cart = await getActiveCart(locals.user.id);
@@ -44,7 +44,7 @@ export const actions: Actions = {
 		await setDeliveryInfo(locals.user.id, deliveryDate, customerMessage);
 
 		// Build Stripe Checkout Session
-		const origin = request.headers.get('origin') || 'https://helli0s.ddns.net';
+		const origin = request.headers.get('origin') || `${url.protocol}//${url.host}`;
 		const base = `${origin}/symios`;
 
 		const result = await createCheckoutSession({

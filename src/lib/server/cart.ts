@@ -144,7 +144,7 @@ export async function addItem(
 export async function removeItem(userId: string, itemId: number): Promise<Cart | null> {
 	const [rows] = await pool.query(
 		`
-		SELECT ci.id, ci.quantity
+		SELECT ci.id, ci.quantity, ci.slices, ci.article_id
 		FROM cart_items ci
 		JOIN carts c ON c.id = ci.cart_id
 		WHERE ci.id = ? AND c.user_id = ? AND c.status = 'pending'
@@ -160,10 +160,10 @@ export async function removeItem(userId: string, itemId: number): Promise<Cart |
 			`
 			UPDATE cart_items
 			SET quantity = quantity - 1,
-			    unit_price = (quantity - 1) * (slices * (SELECT price FROM articles WHERE id = article_id))
+			    unit_price = (quantity - 1) * (? * (SELECT price FROM articles WHERE id = ?))
 			WHERE id = ?
 			`,
-			[item.id]
+			[item.slices, item.article_id, item.id]
 		);
 	} else {
 		await pool.query(`DELETE FROM cart_items WHERE id = ?`, [item.id]);
