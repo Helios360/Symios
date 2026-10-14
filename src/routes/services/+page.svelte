@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { reveal } from '$lib/motion/reveal';
-	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
 	import { base } from '$app/paths';
 

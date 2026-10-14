@@ -265,6 +265,13 @@ h2 {
     color: var(--primary);
     text-transform: uppercase;
 }
+h3 {
+	font-family: "artistic", serif;
+	font-weight: 700;
+	font-size: clamp(20px, 3vw, 28px);
+	color: var(--primary);
+	text-transform: uppercase;
+}
 h4 {
     font-family: "artistic", sans-serif;
     font-size: 18px;
@@ -554,6 +561,6 @@ h4 {
         font-size: 9px;
     }
     h2{
-        font-size:1.9rem!important;
-    }
+    		font-size:1.9rem;
+    	}
 }

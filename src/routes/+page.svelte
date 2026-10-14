@@ -25,6 +25,8 @@
 			<div class="shape-placeholder" aria-hidden="true"></div>
 		{:then ShapeField}
 			<ShapeField.default />
+		{:catch}
+			<!-- Three.js non disponible — affichage normal sans dégradé -->
 		{/await}
 	{/if}
 

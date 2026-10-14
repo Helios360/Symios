@@ -365,7 +365,10 @@
 						<input id="l-pass" class="input" type="password" bind:value={login.password} aria-invalid={!!loginErr.password} />
 						{#if loginErr.password}<p class="field-error">{loginErr.password}</p>{/if}
 					</div>
-					<button type="submit" class="cta full" disabled={busy}>Se connecter</button>
+					<div class="forgot-row">
+						<button type="submit" class="cta" disabled={busy}>Se connecter</button>
+						<a href="/contact" class="forgot-link mono-alt" onclick={(e) => { e.preventDefault(); authError = 'Fonctionnalité à venir — contactez-moi pour réinitialiser.'; }}>Mot de passe oublié ?</a>
+					</div>
 				</form>
 			{:else}
 				<form class="form-grid" onsubmit={submitRegister}>
@@ -481,6 +484,22 @@
 		max-width: 560px;
 		margin-inline: auto;
 		width: 100%;
+	}
+	.forgot-row {
+		grid-column: 1 / -1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+	.forgot-link {
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		color: var(--accent);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		cursor: pointer;
 	}
 	.tabs {
 		display: flex;
