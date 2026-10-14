@@ -1,0 +1,130 @@
+-- ===================================================================
+-- Symios — Complete CREATE TABLE schema
+-- Reconstructed from authoritative source: db/init/01-init.sql (Docker)
+-- Cross-checked against ALL server-side queries in:
+--   src/lib/server/*.ts, src/routes/**/*.ts, src/routes/**/*.server.ts
+--
+-- better-auth v1.6.19 manages auth tables (user, session, account, verification)
+-- with explicit DDL + custom fields defined in src/lib/server/auth.ts.
+--
+-- Migration history:
+--   db/migrations/001_add_stripe_session_id.sql  (already baked into 01-init.sql)
+-- ===================================================================
+
+-- ── Custom tables ────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS articles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT,
+    slug VARCHAR(50) NOT NULL UNIQUE,
+    title VARCHAR(150) NOT NULL,
+    subtitle VARCHAR(300) NOT NULL,
+    cover_image_key VARCHAR(255) NULL,
+    price DECIMAL(10,2) NOT NULL,
+    details_html TEXT NULL,
+    CONSTRAINT category_fk FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE IF NOT EXISTS carts (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    status ENUM('cancelled', 'pending', 'completed') NOT NULL DEFAULT 'pending',
+    customer_message TEXT NULL,
+    photos_folder VARCHAR(255) NULL,
+    delivery_date DATETIME NULL,
+    stripe_session_id VARCHAR(255) NULL,
+    INDEX idx_stripe_session (stripe_session_id),
+    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE IF NOT EXISTS cart_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id VARCHAR(36) NOT NULL,
+    article_id INT NOT NULL,
+    slices INT NOT NULL DEFAULT 1,
+    quantity INT NOT NULL DEFAULT 1,
+    unit_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+    CONSTRAINT cart_items_cart_fk FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+    CONSTRAINT cart_items_article_fk FOREIGN KEY (article_id) REFERENCES articles(id)
+);
+
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    slug VARCHAR(150) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL,
+    excerpt VARCHAR(500) NULL,
+    content TEXT NULL,
+    author_id VARCHAR(36) NULL,
+    published BOOLEAN NOT NULL DEFAULT false,
+    published_at TIMESTAMP NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE SET NULL
+);
+
+-- ── Better Auth tables (user, session, account, verification) ─────
+-- These were previously created at runtime by better-auth but are now
+-- defined here so Docker init includes them + the custom `role` column.
+-- Custom additionalFields from src/lib/server/auth.ts:
+--   phone (string, required), fname (string), address (string),
+--   city (string), role (number, admin=1)
+
+CREATE TABLE IF NOT EXISTS user (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    emailVerified BOOLEAN NOT NULL DEFAULT false,
+    image VARCHAR(255) NULL,
+    phone VARCHAR(15) NOT NULL,
+    fname VARCHAR(255) NULL,
+    address VARCHAR(255) NULL,
+    city VARCHAR(100) NULL,
+    role INT NOT NULL DEFAULT 0,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS session (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    expiresAt TIMESTAMP NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    ipAddress VARCHAR(255) NULL,
+    userAgent TEXT NULL,
+    userId VARCHAR(36) NOT NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS account (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    accountId VARCHAR(255) NOT NULL,
+    providerId VARCHAR(255) NOT NULL,
+    userId VARCHAR(36) NOT NULL,
+    accessToken TEXT NULL,
+    refreshToken TEXT NULL,
+    idToken TEXT NULL,
+    accessTokenExpiresAt TIMESTAMP NULL,
+    refreshTokenExpiresAt TIMESTAMP NULL,
+    scope VARCHAR(255) NULL,
+    password VARCHAR(255) NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS verification (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    identifier VARCHAR(255) NOT NULL,
+    value TEXT NULL,
+    expiresAt TIMESTAMP NOT NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
