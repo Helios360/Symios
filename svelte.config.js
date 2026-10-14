@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: {
-			base: '/symios',
+			base: '',
 			// Use absolute paths for static assets so images resolve correctly from any route
 			relative: false
 		}

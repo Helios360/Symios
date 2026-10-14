@@ -11,7 +11,7 @@ export const auth = betterAuth({
 	database: pool,
 	trustedOrigins,
 	emailAndPassword: { enabled: true },
-	basePath: '/symios/api/auth',
+	basePath: '/api/auth',
 	baseURL: {
 		url: env.BETTER_AUTH_URL || 'http://localhost:3000',
 		// Tell better-auth the public-facing protocol is HTTPS

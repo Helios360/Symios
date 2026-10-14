@@ -45,7 +45,6 @@ export const actions: Actions = {
 
 		// Build Stripe Checkout Session
 		const origin = request.headers.get('origin') || `${url.protocol}//${url.host}`;
-		const base = `${origin}/symios`;
 
 		const result = await createCheckoutSession({
 			cartId: cart.id,
@@ -54,8 +53,8 @@ export const actions: Actions = {
 				quantity: item.quantity,
 				unitPrice: Math.round(item.price! * 100)
 			})),
-			successUrl: `${base}/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-			cancelUrl: `${base}/shop/checkout`
+			successUrl: `${origin}/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+			cancelUrl: `${origin}/shop/checkout`
 		});
 
 		// Link the Stripe session to the cart
