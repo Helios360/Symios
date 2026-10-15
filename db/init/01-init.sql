@@ -17,6 +17,9 @@ CREATE TABLE articles (
 -- Better Auth tables (user, session, account, verification)
 -- Must come BEFORE carts/auth tables that reference user(id).
 
+ALTER USER 'symios'@'%' IDENTIFIED WITH caching_sha2_password BY 'symios';
+FLUSH PRIVILEGES;
+
 CREATE TABLE IF NOT EXISTS user (
     id VARCHAR(36) PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
