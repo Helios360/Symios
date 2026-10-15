@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 </script>
 
@@ -29,7 +29,7 @@
 			<div class="terminal-body mono">
 				<div class="cmd">&gt; symios ressources --list</div>
 				<div class="out">Bibliothèque en construction. Revenez bientôt !</div>
-				<a href="{base}/blog" class="cta-light" style="margin-top:1rem;display:inline-block">Voir le blog →</a>
+				<a href="{resolve('/blog')}" class="cta-light" style="margin-top:1rem;display:inline-block">Voir le blog →</a>
 			</div>
 		</div>
 	</div>

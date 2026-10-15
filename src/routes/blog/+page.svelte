@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -37,11 +37,11 @@
 						<span class="mono-alt">{post.author_name}</span>
 					</div>
 					<div class="post-card-body">
-						<h2><a href="{base}/blog/{post.slug}">{post.title}</a></h2>
+						<h2><a href="{resolve('/blog/{post.slug')}}">{post.title}</a></h2>
 						{#if post.excerpt}
 							<p>{post.excerpt}</p>
 						{/if}
-						<a href="{base}/blog/{post.slug}" class="cta-light">Lire l'article →</a>
+						<a href="{resolve('/blog/{post.slug')}}" class="cta-light">Lire l'article →</a>
 					</div>
 				</article>
 			{/each}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { parallax } from '$lib/motion/parallax';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
@@ -40,8 +40,8 @@
 				à l'heure — toujours livré avec sa documentation.
 			</p>
 			<div class="button-container">
-				<a href="{base}/project" class="cta">Démarrer un projet →</a>
-				<a href="{base}/shop" class="cta-light">Voir le catalogue</a>
+				<a href="{resolve('/project')}" class="cta">Démarrer un projet →</a>
+				<a href="{resolve('/shop')}" class="cta-light">Voir le catalogue</a>
 			</div>
 		</div>
 	</div>

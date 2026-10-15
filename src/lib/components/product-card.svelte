@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { reveal } from '$lib/motion/reveal';
 	import { float } from '$lib/motion/float';
@@ -65,7 +65,7 @@
 					<button type="submit" class="cta" class:added>{added ? 'ajouté ✓' : '+ panier'}</button>
 				</form>
 			{:else}
-				<a href="{base}/account" class="cta" title="Connectez-vous pour commander">connexion →</a>
+				<a href="{resolve('/account')}" class="cta" title="Connectez-vous pour commander">connexion →</a>
 			{/if}
 		</div>
 	</div>

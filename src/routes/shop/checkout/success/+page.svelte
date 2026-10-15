@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 	import { tilt } from '$lib/motion/tilt';
 
@@ -32,8 +32,8 @@
 	</div>
 
 	<div class="actions">
-		<a href="{base}/account" class="cta">Voir mes commandes →</a>
-		<a href="{base}/shop" class="cta-light">Continuer les achats</a>
+		<a href="{resolve('/account')}" class="cta">Voir mes commandes →</a>
+		<a href="{resolve('/shop')}" class="cta-light">Continuer les achats</a>
 	</div>
 </section>
 

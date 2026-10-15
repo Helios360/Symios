@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section class="legal-page">
-	<a href="{base}" class="back mono-alt">← Retour à l'accueil</a>
+	<a href={resolve('/')} class="back mono-alt">← Retour à l'accueil</a>
 
 	<article class="legal-article">
 		<header class="legal-header">
@@ -61,7 +61,7 @@
 	</article>
 
 	<footer class="legal-footer">
-		<a href="{base}" class="mono-alt">← Retour à l'accueil</a>
+		<a href={resolve('/')} class="mono-alt">← Retour à l'accueil</a>
 	</footer>
 </section>
 

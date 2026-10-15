@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { reveal } from '$lib/motion/reveal';
 	import { tilt } from '$lib/motion/tilt';
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 
 	let filter = $state('all');
 
@@ -275,7 +275,7 @@
 			<p class="section-index">// ENVIE D'ALLER PLUS LOIN ?</p>
 			<h2>Parlons de votre projet</h2>
 			<p>Chaque besoin est unique. Je vous écoute, je vous conseille, et je construis la solution qui vous correspond.</p>
-			<a href="{base}/project" class="cta">Démarrer un projet →</a>
+			<a href="{resolve('/project')}" class="cta">Démarrer un projet →</a>
 		</div>
 	</section>
 
@@ -293,7 +293,7 @@
 			{@html selected.detail}
 		</div>
 		<div class="modal-bottom">
-			<a href="{base}/project" class="cta">Demander un devis →</a>
+			<a href="{resolve('/project')}" class="cta">Demander un devis →</a>
 		</div>
 	</div>
 {/if}

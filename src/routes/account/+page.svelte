@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { invalidateAll, goto } from '$app/navigation';
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { authClient } from '$lib/auth-client';
 	import {
@@ -228,12 +228,12 @@
 						<form method="POST" action="?/clearCart" use:enhance={cartAction('Panier vidé.')}>
 							<button type="submit" class="cta-light">Vider</button>
 						</form>
-						<a href="{base}/shop/checkout" class="cta">Passer au paiement →</a>
+						<a href="{resolve('/shop/checkout')}" class="cta">Passer au paiement →</a>
 					</div>
 				</div>
 			{:else}
 				<p class="mono sub empty-cart">
-					Votre panier est vide. <a href="{base}/shop">Parcourir la boutique →</a>
+					Votre panier est vide. <a href="{resolve('/shop')}">Parcourir la boutique →</a>
 				</p>
 			{/if}
 		</section>

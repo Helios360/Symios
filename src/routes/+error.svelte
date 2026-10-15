@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { base } from "$app/paths";
+	import { resolve } from "$app/paths";
 </script>
 
 <svelte:head>
@@ -13,7 +13,7 @@
 	<h1 class="error-code">{page.status}</h1>
 	<hr />
 	<h2 class="error-msg">{page.error?.message || 'Une erreur est survenue.'}</h2>
-	<a href={base} class="cta">Retour à l'accueil →</a>
+	<a href={resolve('/')} class="cta">Retour à l'accueil →</a>
 </section>
 
 <style>

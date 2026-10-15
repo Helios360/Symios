@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section class="legal-page">
-	<a href="{base}" class="back mono-alt">← Retour à l'accueil</a>
+	<a href={resolve('/')} class="back mono-alt">← Retour à l'accueil</a>
 
 	<article class="legal-article">
 		<header class="legal-header">
@@ -23,7 +23,7 @@
 			<p>Les CGV sont accessibles à tout moment sur le Site et prévaudront sur toute autre version. Le Client déclare en avoir pris connaissance et les accepter avant toute commande.</p>
 
 			<h2>2. Prestations et tarifs</h2>
-			<p>Les prestations proposées sont listées sur la page <a href="{base}/shop">Boutique</a> du Site et se répartissent en trois catégories :</p>
+			<p>Les prestations proposées sont listées sur la page <a href="{resolve('/shop')}">Boutique</a> du Site et se répartissent en trois catégories :</p>
 			<ul>
 				<li><strong>Abonnements</strong> — prestations récurrentes facturées mensuellement, avec engagement minimum de 3 mois sauf mention contraire.</li>
 				<li><strong>Forfaits</strong> — prestations ponctuelles cadrées, facturées au forfait, avec un périmètre défini dans la proposition commerciale.</li>
@@ -89,7 +89,7 @@
 	</article>
 
 	<footer class="legal-footer">
-		<a href="{base}" class="mono-alt">← Retour à l'accueil</a>
+		<a href={resolve('/')} class="mono-alt">← Retour à l'accueil</a>
 	</footer>
 </section>
 

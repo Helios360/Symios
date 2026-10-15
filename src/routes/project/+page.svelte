@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 	import { tilt } from '$lib/motion/tilt';
 </script>
@@ -25,7 +25,7 @@
 				<h2>Parlons-en</h2>
 				<p>La meilleure façon de commencer, c'est d'échanger.<br />Écrivez-moi directement.</p>
 				<a href="mailto:elias.treguier@gmail.com" class="cta cta-inverse">Envoyer un email →</a>
-				<a href="{base}/contact" class="cta-light">Autres coordonnées</a>
+				<a href="{resolve('/contact')}" class="cta-light">Autres coordonnées</a>
 			</div>
 		</div>
 	</div>

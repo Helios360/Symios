@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
@@ -11,8 +11,8 @@
 			<h2>Prêt à passer<br />à l'action&nbsp;?</h2>
 			<p>Un audit gratuit pour faire le point sur vos besoins et vos systèmes.</p>
 			<div class="button-container">
-				<a href="{base}/project" class="cta cta-inverse">Démarrer un projet →</a>
-				<a href="{base}/services" class="cta-light">Voir nos services</a>
+				<a href="{resolve('/project')}" class="cta cta-inverse">Démarrer un projet →</a>
+				<a href="{resolve('/services')}" class="cta-light">Voir nos services</a>
 			</div>
 		</div>
 	</div>

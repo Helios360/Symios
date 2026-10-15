@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -9,8 +9,8 @@
 	});
 
 	let ogImage = $derived(data.post.cover_image_key
-		? `${base}/uploads/${data.post.cover_image_key}`
-		: `${base}/images/icon.png`);
+		? `${asset('/uploads/')}${data.post.cover_image_key}`
+		: asset('/images/icon.png'));
 </script>
 
 <svelte:head>
@@ -30,7 +30,7 @@
 </svelte:head>
 
 <section class="post-page">
-	<a href="{base}/blog" class="back mono-alt">← Retour au blog</a>
+	<a href="{resolve('/blog')}" class="back mono-alt">← Retour au blog</a>
 
 	<article class="post-article" itemscope itemtype="https://schema.org/Article">
 		<meta itemprop="datePublished" content={data.post.published_at} />
@@ -53,7 +53,7 @@
 	</article>
 
 	<footer class="post-footer">
-		<a href="{base}/blog" class="mono-alt">← Tous les articles</a>
+		<a href="{resolve('/blog')}" class="mono-alt">← Tous les articles</a>
 	</footer>
 </section>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { slideIn } from '$lib/motion/slideIn';
 	import { float } from '$lib/motion/float';
 	import { tilt } from '$lib/motion/tilt';
@@ -20,7 +20,7 @@
 	<div class="catalogue-header">
 		<p class="section-index">// 002 — Le catalogue</p>
 		<h2>Travaillons ensemble</h2>
-		<a href="{base}/shop" class="catalogue-link mono-alt">Tout le catalogue →</a>
+		<a href="{resolve('/shop')}" class="catalogue-link mono-alt">Tout le catalogue →</a>
 	</div>
 
 	<div class="modules-grid">
@@ -45,7 +45,7 @@
 					{/if}
 					<div class="card-foot">
 						<span class="price-label mono-alt">{module.price ? `${module.price}€` : 'Sur-mesure'}</span>
-						<a href="{base}/shop" class="cta-light">Voir →</a>
+						<a href="{resolve('/shop')}" class="cta-light">Voir →</a>
 					</div>
 				</div>
 			</article>

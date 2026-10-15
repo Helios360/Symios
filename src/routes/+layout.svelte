@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { base } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import type { LayoutData } from './$types';
 	import { scrollSpeed } from '$lib/motion/scrollSpeed';
 	import '../styles/app.css';
@@ -62,9 +62,9 @@
 	<meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
 	<meta name="robots" content="index, follow">
 
-	<link rel="icon" type="image/png" sizes="180x180" href="{base}/images/favicon.png">
-	<link rel="shortcut icon" href="{base}/images/favicon.png">
-	<link rel="apple-touch-icon" href="{base}/images/icon.png">
+	<link rel="icon" type="image/png" sizes="180x180" href="{asset('/images/favicon.png')}">
+	<link rel="shortcut icon" href="{asset('/images/favicon.png')}">
+	<link rel="apple-touch-icon" href="{asset('/images/icon.png')}">
 
 	<!-- Preconnect for font loading -->
 	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -85,7 +85,7 @@
 	<meta name="twitter:image" content={OG_IMAGE}>
 
 	<!-- Preload hero image -->
-	<link rel="preload" as="image" href="{base}/images/Boutique.png" fetchpriority="high">
+	<link rel="preload" as="image" href="{asset('/images/Boutique.png')}" fetchpriority="high">
 
 	{@html `<script type="application/ld+json">${JSON.stringify(JSONLD)}</` + `script>`}
 </svelte:head>
@@ -94,18 +94,18 @@
 <a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <header class="site-header">
-	<a href={base}><img src="{base}/images/logo.png" alt="SYMIOS" width="120" height="80"></a>
+	<a href={resolve('/')}><img src="{asset('/images/logo.png')}" alt="SYMIOS" width="120" height="80"></a>
 	<!-- Desktop nav -->
 	<nav class="desktop-nav" aria-label="Navigation principale">
-		<a href="{base}/services">services</a>
-		<a href="{base}/shop">shop</a>
-		<a href="{base}/blog">blog</a>
-		<a href="{base}/ressources">ressources</a>
-		<a href="{base}/contact">contact</a>
+		<a href="{resolve('/services')}">services</a>
+		<a href="{resolve('/shop')}">shop</a>
+		<a href="{resolve('/blog')}">blog</a>
+		<a href="{resolve('/ressources')}">ressources</a>
+		<a href="{resolve('/contact')}">contact</a>
 		{#if data.isAdmin}
-			<a href="{base}/admin">admin</a>
+			<a href="{resolve('/admin')}">admin</a>
 		{/if}
-		<a href="{base}/project" class="cta">démarrer un projet</a>
+		<a href="{resolve('/project')}" class="cta">démarrer un projet</a>
 	</nav>
 	<!-- Mobile toggle -->
 	<button class="mobile-toggle no-print" aria-label="Menu" aria-expanded={mobileNavOpen} onclick={() => (mobileNavOpen = !mobileNavOpen)}>
@@ -116,15 +116,15 @@
 {#if mobileNavOpen}
 	<!-- Mobile nav overlay -->
 	<nav class="mobile-nav no-print" aria-label="Navigation mobile">
-		<a href="{base}/services" onclick={() => (mobileNavOpen = false)}>services</a>
-		<a href="{base}/shop" onclick={() => (mobileNavOpen = false)}>shop</a>
-		<a href="{base}/blog" onclick={() => (mobileNavOpen = false)}>blog</a>
-		<a href="{base}/ressources" onclick={() => (mobileNavOpen = false)}>ressources</a>
-		<a href="{base}/contact" onclick={() => (mobileNavOpen = false)}>contact</a>
+		<a href="{resolve('/services')}" onclick={() => (mobileNavOpen = false)}>services</a>
+		<a href="{resolve('/shop')}" onclick={() => (mobileNavOpen = false)}>shop</a>
+		<a href="{resolve('/blog')}" onclick={() => (mobileNavOpen = false)}>blog</a>
+		<a href="{resolve('/ressources')}" onclick={() => (mobileNavOpen = false)}>ressources</a>
+		<a href="{resolve('/contact')}" onclick={() => (mobileNavOpen = false)}>contact</a>
 		{#if data.isAdmin}
-			<a href="{base}/admin" onclick={() => (mobileNavOpen = false)}>admin</a>
+			<a href="{resolve('/admin')}" onclick={() => (mobileNavOpen = false)}>admin</a>
 		{/if}
-		<a href="{base}/project" class="cta" onclick={() => (mobileNavOpen = false)}>démarrer un projet</a>
+		<a href="{resolve('/project')}" class="cta" onclick={() => (mobileNavOpen = false)}>démarrer un projet</a>
 	</nav>
 {/if}
 
@@ -136,9 +136,9 @@
 	</span>
 	<span class="account-links">
 		{#if data.cartCount > 0}
-			<a href="{base}/account#panier"><u>panier ({data.cartCount})</u></a>&nbsp;x&nbsp;
+			<a href="{resolve('/account#panier')}"><u>panier ({data.cartCount})</u></a>&nbsp;x&nbsp;
 		{/if}
-		<a href="{base}/account"><u>mon compte →</u></a>
+		<a href="{resolve('/account')}"><u>mon compte →</u></a>
 	</span>
 </div>
 
@@ -147,13 +147,13 @@
 </main>
 
 <footer class="site-footer">
-	<a href={base}><img src="{base}/images/logo.png" alt="SYMIOS" width="150" height="100"></a>
+	<a href={resolve('/')}><img src="{asset('/images/logo.png')}" alt="SYMIOS" width="150" height="100"></a>
 	<div class="usefull-links">
 		<span>
 			<p style="color:var(--accent)">NAVIGUER</p>
-			<a href={base}>Accueil</a>
-			<a href="{base}/services">Services</a>
-			<a href="{base}/blog">Blog</a>
+			<a href={resolve('/')}>Accueil</a>
+			<a href="{resolve('/services')}">Services</a>
+			<a href="{resolve('/blog')}">Blog</a>
 		</span>
 		<span>
 			<p style="color:var(--accent)">SUIVRE</p>
@@ -165,7 +165,7 @@
 </footer>
 <footer class="subfooter">
 	<span>© {new Date().getFullYear()} symios — fait par hellios</span>
-	<span>open-source friendly · <a href="{base}/cgv">CGV</a> · <a href="{base}/cgu">CGU</a> · <a href="{base}/mentions-legales">Mentions légales</a></span>
+	<span>open-source friendly · <a href="{resolve('/cgv')}">CGV</a> · <a href="{resolve('/cgu')}">CGU</a> · <a href="{resolve('/mentions-legales')}">Mentions légales</a></span>
 </footer>
 
 <style>
