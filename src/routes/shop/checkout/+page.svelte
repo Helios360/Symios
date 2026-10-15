@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { reveal } from '$lib/motion/reveal';
 	import type { PageData } from './$types';
 
@@ -10,13 +10,19 @@
 
 	const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
 
-	let deliveryDate = $state(cart.delivery_date ?? '');
-	let customerMessage = $state(cart.customer_message ?? '');
+	let deliveryDate = $state('');
+	let customerMessage = $state('');
 	let saving = $state(false);
+
+	// Initialize from server data
+	$effect(() => {
+		deliveryDate = data.cart.delivery_date ?? '';
+		customerMessage = data.cart.customer_message ?? '';
+	});
 
 	async function saveDeliveryInfo() {
 		saving = true;
-		await fetch(`${base}/shop/checkout?/setDelivery`, {
+		await fetch(`${resolve('/shop/checkout?/setDelivery')}`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/x-www-form-urlencoded' },
 			body: new URLSearchParams({
@@ -54,7 +60,7 @@
 			</ul>
 			<div class="cart-foot">
 				<span class="cart-total">Total <strong>{euro.format(cart.total)}</strong></span>
-				<a href="{base}/account#panier" class="cta-light">Modifier le panier</a>
+				<a href="{resolve('/account')}#panier" class="cta-light">Modifier le panier</a>
 			</div>
 		</section>
 
