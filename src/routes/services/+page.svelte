@@ -179,6 +179,16 @@
 		if (e.key === 'Enter' || e.key === ' ') closeModal();
 	}
 
+	// Lock page scroll while the modal is open
+	$effect(() => {
+		if (selected) {
+			document.body.style.overflow = 'hidden';
+			return () => {
+				document.body.style.overflow = '';
+			};
+		}
+	});
+
 	let filtered = $derived(
 		filter === 'all' ? services : services.filter((s) => s.category === filter)
 	);
