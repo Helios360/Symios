@@ -21,3 +21,11 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Playwright / tests
+/test-results
+/playwright-report
+/playwright/.cache
+
+# Generated (non-standard outDir — leftover from container sync)
+/.svelte-kit-verify
