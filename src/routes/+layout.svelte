@@ -13,7 +13,7 @@
 	const SITE_NAME = 'Symios';
 	const DEFAULT_TITLE = "Symios | Agents IA sur-mesure";
 	const DEFAULT_DESCRIPTION = "Je conçois, déploie et documente des agents IA sur-mesure pour les entreprises. Audit, architecture, déploiement — livré avec sa documentation.";
-	const OG_IMAGE = `${SITE_URL}/images/icon.png`;
+	const OG_IMAGE = `${SITE_URL}/images/logo.svg`;
 
 	let canonical = $derived(`${SITE_URL}${page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')}`);
 
@@ -87,7 +87,7 @@
 	<meta name="twitter:image" content={OG_IMAGE}>
 
 	<!-- Preload hero image -->
-	<link rel="preload" as="image" href="{asset('/images/Boutique.png')}" fetchpriority="high">
+	<link rel="preload" as="image" href="{asset('/images/logo.svg')}" fetchpriority="high">
 
 	{@html `<script type="application/ld+json">${JSON.stringify(JSONLD)}</` + `script>`}
 </svelte:head>

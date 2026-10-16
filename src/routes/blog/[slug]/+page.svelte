@@ -10,7 +10,7 @@
 
 	let ogImage = $derived(data.post.cover_image_key
 		? `${asset('/uploads/')}${data.post.cover_image_key}`
-		: asset('/images/icon.png'));
+		: asset('/images/logo.svg'));
 </script>
 
 <svelte:head>
