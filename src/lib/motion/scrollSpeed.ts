@@ -19,8 +19,22 @@ export function scrollSpeed(node: HTMLElement, factor: number = 0.35) {
 	let target = window.scrollY;
 	let raf: number | null = null;
 
+	// Let nested scroll containers (modal, code block...) scroll natively.
+	function isInsideScrollable(target: EventTarget | null): boolean {
+		let el = target instanceof Element ? target : null;
+		while (el && el !== node) {
+			const style = getComputedStyle(el);
+			if (/(auto|scroll|overlay)/.test(style.overflowY) && el.scrollHeight > el.clientHeight) {
+				return true;
+			}
+			el = el.parentElement;
+		}
+		return false;
+	}
+
 	function onWheel(e: WheelEvent) {
 		if (!e.cancelable) return;
+		if (isInsideScrollable(e.target)) return;
 		e.preventDefault();
 
 		let pixels: number;
