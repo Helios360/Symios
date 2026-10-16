@@ -331,6 +331,11 @@
 					</form>
 				{/if}
 			</aside>
+
+			<a href={resolve('/account/data')} class="panel card rgpd-link mono-alt">
+				Mes données (RGPD) →
+				<span class="sub">Accès, portabilité, suppression de vos données personnelles.</span>
+			</a>
 		</div>
 	{:else}
 		<!-- ─────────── DÉCONNECTÉ ─────────── -->
@@ -671,6 +676,31 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+	}
+
+	/* ── RGPD ──────────────────────────────────────────── */
+	.rgpd-link {
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--accent);
+		border: var(--line) solid var(--accent);
+		transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+	}
+	.rgpd-link .sub {
+		font-size: 12px;
+		font-weight: 400;
+		letter-spacing: 0;
+		text-transform: none;
+		color: var(--text-muted);
+		margin-top: 0.2rem;
+	}
+	.rgpd-link:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 4px 4px 0 0 var(--accent);
+		background: var(--background-accent);
 	}
 
 	@media (max-width: 760px) {
