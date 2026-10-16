@@ -6,4 +6,4 @@ Disallow: /api/
 Disallow: /shop/checkout
 
 # Sitemap
-Sitemap: https://www.symios.com/sitemap.xml
+Sitemap: https://symios.fr/sitemap.xml

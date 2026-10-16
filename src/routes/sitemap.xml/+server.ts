@@ -2,7 +2,7 @@ import { pool } from '$lib/server/db';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
-	const SITE_URL = 'https://www.symios.com';
+	const SITE_URL = 'https://symios.fr';
 
 	const [articleRows] = await pool.query(
 		`SELECT slug FROM articles ORDER BY id ASC`

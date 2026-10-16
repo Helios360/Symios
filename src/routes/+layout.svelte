@@ -10,10 +10,10 @@
 
 	let mobileNavOpen = $state(false);
 
-	const SITE_URL = 'https://www.symios.com';
+	const SITE_URL = 'https://symios.fr';
 	const SITE_NAME = 'Symios';
-	const DEFAULT_TITLE = "Symios | Agents IA sur-mesure";
-	const DEFAULT_DESCRIPTION = "Je conçois, déploie et documente des agents IA sur-mesure pour les entreprises. Audit, architecture, déploiement — livré avec sa documentation.";
+	const DEFAULT_TITLE = "Symios | Agents IA, automatisation et intégration — France";
+	const DEFAULT_DESCRIPTION = "Symios conçoit, déploie et documente des agents IA sur mesure pour les entreprises françaises. Audit gratuit, architecture personnalisée, déploiement souverain (Infomaniak), documentation complète.";
 	const OG_IMAGE = `${SITE_URL}/images/logo.svg`;
 
 	let canonical = $derived(`${SITE_URL}${page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')}`);
@@ -40,9 +40,10 @@
 
 	const JSONLD = {
 		'@context': 'https://schema.org',
-		'@type': 'ProfessionalService',
+		'@type': 'Organization',
 		name: SITE_NAME,
 		url: SITE_URL,
+		logo: OG_IMAGE,
 		image: OG_IMAGE,
 		description: DEFAULT_DESCRIPTION,
 		priceRange: '€€–€€€',
@@ -50,7 +51,9 @@
 		areaServed: { '@type': 'AdministrativeArea', name: "France" },
 		sameAs: [
 			'https://github.com/symios',
-			'https://www.linkedin.com/company/symios'
+			'https://www.linkedin.com/company/symios',
+			'https://instagram.com/symios',
+			'https://youtube.com/@symios'
 		]
 	};
 </script>
@@ -69,7 +72,7 @@
 
 	<!-- Preconnect for font loading -->
 	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
-	<link rel="preconnect" href="https://www.symios.com">
+	<link rel="preconnect" href="https://symios.fr">
 
 	<link href="https://fonts.googleapis.com/css2?family=Monoton" rel="stylesheet">
 
@@ -91,6 +94,9 @@
 	<link rel="preload" as="image" href="{asset('/images/logo.svg')}" fetchpriority="high">
 
 	{@html `<script type="application/ld+json">${JSON.stringify(JSONLD)}</` + `script>`}
+
+	<!-- Google Search Console verification -->
+	<meta name="google-site-verification" content="symios-fr">
 </svelte:head>
 
 <!-- Skip-to-content link -->
