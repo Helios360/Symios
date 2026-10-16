@@ -28,7 +28,7 @@
 		min-height: 40vh;
 	}
 	.error-code {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 80px;
 		font-weight: 800;
 		color: var(--accent);

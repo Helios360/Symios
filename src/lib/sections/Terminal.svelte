@@ -11,7 +11,7 @@
 	const terminalLines = [
 		'> symios init --client',
 		'✓ système audité',
-		'✓ architecture calée',
+		'✓ architecture installée',
 		'✓ modèles choisis',
 		'✓ CI/CD prêt',
 		'✓ tests verts (12/12)',
@@ -111,7 +111,7 @@
 	}
 
 	h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-weight: 800;
 		font-size: 42px;
 		color: var(--primary);

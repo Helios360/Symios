@@ -116,7 +116,7 @@
 	}
 
 	.post-card-body h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 24px;
 		font-weight: 700;
 		color: var(--primary);

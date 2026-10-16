@@ -213,7 +213,7 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 1.5rem;
     width: 100%;
     max-width: 1440px;
     margin-inline: auto;
@@ -252,32 +252,40 @@ main {
     z-index: 100;
 }
 h1 {
-    font-family: "artistic", serif;
-    font-weight: 800;
-    font-size: clamp(32px, 5vw, 62px);
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    font-size: clamp(24px, 4vw, 48px);
     color: var(--primary);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 h2 {
-    font-family: "artistic", serif;
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 42px);
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 3.2vw, 34px);
     color: var(--primary);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 h3 {
-	font-family: "artistic", serif;
-	font-weight: 700;
-	font-size: clamp(20px, 3vw, 28px);
+	font-family: "Monoton", sans-serif;
+	font-weight: 400;
+	font-size: clamp(17px, 2.5vw, 24px);
 	color: var(--primary);
 	text-transform: uppercase;
+	overflow-wrap: break-word;
 }
 h4 {
-    font-family: "artistic", sans-serif;
+    font-family: "Monoton", sans-serif;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
     color: rgb(44, 33, 24);
+}
+h5, h6 {
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
 }
 
 /* ── CTA buttons ──────────────────────────────────────── */
@@ -532,7 +540,7 @@ h4 {
     .site-header {
         flex-wrap: wrap;
         gap: 0.5rem;
-        padding: 8px 12px;
+        padding: 1rem;
     }
     nav {
         font-size: 10px;

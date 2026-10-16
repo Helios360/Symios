@@ -71,7 +71,7 @@
 		gap: 1rem;
 	}
 	.cta-card h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-weight: 800;
 		font-size: 38px;
 		text-transform: uppercase;

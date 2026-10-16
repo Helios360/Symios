@@ -452,7 +452,7 @@
 		gap: 1.1rem;
 	}
 	.card h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 22px;
 		color: var(--primary);
 	}
@@ -575,7 +575,7 @@
 		color: var(--primary);
 	}
 	.line-total {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-weight: 700;
 		color: var(--primary);
 		white-space: nowrap;
@@ -608,7 +608,7 @@
 		color: var(--text-muted);
 	}
 	.cart-total strong {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 24px;
 		color: var(--primary);
 		margin-left: 0.5rem;
@@ -646,7 +646,7 @@
 	}
 	.order-total {
 		margin-left: auto;
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-weight: 700;
 		color: var(--primary);
 	}

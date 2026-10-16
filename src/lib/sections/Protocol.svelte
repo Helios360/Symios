@@ -103,7 +103,7 @@
 
 	.track-rail {
 		position: absolute;
-		top: 22px;
+		top: 5px;
 		left: 0;
 		right: 0;
 		height: 2px;
@@ -141,6 +141,7 @@
 		flex-direction: column;
 		align-items: center;
 		position: relative;
+		gap:1rem;
 	}
 
 	.step-dot {
@@ -158,7 +159,7 @@
 		font-size: 36px;
 		font-weight: 800;
 		color: var(--accent);
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		line-height: 1;
 		margin-top: -10px;
 		position: relative;
@@ -181,7 +182,7 @@
 	}
 
 	.step-body h4 {
-		font-family: 'artistic', sans-serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 18px;
 		font-weight: 600;
 		text-transform: uppercase;

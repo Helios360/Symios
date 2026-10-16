@@ -84,7 +84,7 @@
 		flex-direction: column;
 	}
 	.price-amount {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 23px;
 		font-weight: 800;
 		color: var(--primary);

@@ -62,13 +62,15 @@
 	<meta name="keywords" content="Symios, IA, agents, intelligence artificielle, intégrateur, automation, entreprise, France">
 	<meta name="robots" content="index, follow">
 
-	<link rel="icon" type="image/png" sizes="180x180" href="{asset('/images/favicon.png')}">
-	<link rel="shortcut icon" href="{asset('/images/favicon.png')}">
-	<link rel="apple-touch-icon" href="{asset('/images/icon.png')}">
+	<link rel="icon" type="image/png" sizes="180x180" href="{asset('/images/logo.svg')}">
+	<link rel="shortcut icon" href="{asset('/images/logo.svg')}">
+	<link rel="apple-touch-icon" href="{asset('/images/logo.svg')}">
 
 	<!-- Preconnect for font loading -->
 	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 	<link rel="preconnect" href="https://www.symios.com">
+
+	<link href="https://fonts.googleapis.com/css2?family=Monoton" rel="stylesheet">
 
 	<meta property="og:type" content="website">
 	<meta property="og:locale" content="fr_FR">
@@ -94,18 +96,20 @@
 <a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <header class="site-header">
-	<a href={resolve('/')}><img src="{asset('/images/logo.png')}" alt="SYMIOS" width="120" height="80"></a>
+	<a href={resolve('/')} class="site-logo">
+		<img src="{asset('/images/logo.svg')}" alt="" width="60" height="60">
+		<span class="logo-type">Symios</span>
+	</a>
 	<!-- Desktop nav -->
 	<nav class="desktop-nav" aria-label="Navigation principale">
 		<a href="{resolve('/services')}">services</a>
 		<a href="{resolve('/shop')}">shop</a>
 		<a href="{resolve('/blog')}">blog</a>
 		<a href="{resolve('/ressources')}">ressources</a>
-		<a href="{resolve('/contact')}">contact</a>
 		{#if data.isAdmin}
 			<a href="{resolve('/admin')}">admin</a>
 		{/if}
-		<a href="{resolve('/project')}" class="cta">démarrer un projet</a>
+		<a href="{resolve('/contact')}" class="cta">contact</a>
 	</nav>
 	<!-- Mobile toggle -->
 	<button class="mobile-toggle no-print" aria-label="Menu" aria-expanded={mobileNavOpen} onclick={() => (mobileNavOpen = !mobileNavOpen)}>
@@ -120,11 +124,10 @@
 		<a href="{resolve('/shop')}" onclick={() => (mobileNavOpen = false)}>shop</a>
 		<a href="{resolve('/blog')}" onclick={() => (mobileNavOpen = false)}>blog</a>
 		<a href="{resolve('/ressources')}" onclick={() => (mobileNavOpen = false)}>ressources</a>
-		<a href="{resolve('/contact')}" onclick={() => (mobileNavOpen = false)}>contact</a>
 		{#if data.isAdmin}
 			<a href="{resolve('/admin')}" onclick={() => (mobileNavOpen = false)}>admin</a>
 		{/if}
-		<a href="{resolve('/project')}" class="cta" onclick={() => (mobileNavOpen = false)}>démarrer un projet</a>
+		<a href="{resolve('/contact')}" class="cta" onclick={() => (mobileNavOpen = false)}>contact</a>
 	</nav>
 {/if}
 
@@ -147,7 +150,7 @@
 </main>
 
 <footer class="site-footer">
-	<a href={resolve('/')}><img src="{asset('/images/logo.png')}" alt="SYMIOS" width="150" height="100"></a>
+	<a href={resolve('/')}><img src="{asset('/images/logo.svg')}" alt="SYMIOS" width="150" height="150"></a>
 	<div class="usefull-links">
 		<span>
 			<p style="color:var(--accent)">NAVIGUER</p>
@@ -159,7 +162,7 @@
 			<p style="color:var(--accent)">SUIVRE</p>
 			<a href="https://github.com/symios" target="_blank" rel="noopener noreferrer">GitHub</a>
 			<a href="https://www.linkedin.com/company/symios" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-			<a href="/" target="_blank" rel="noopener noreferrer" aria-label="RSS">RSS</a>
+			<!--<a href="/" target="_blank" rel="noopener noreferrer" aria-label="RSS">RSS</a>-->
 		</span>
 	</div>
 </footer>
@@ -169,6 +172,20 @@
 </footer>
 
 <style>
+	.site-logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.8rem;
+		text-decoration: none;
+		color: inherit;
+	}
+	.logo-type {
+		font-family: "subtext", serif;
+		font-size: 24px;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
 	.subheader {
 		background-color: var(--primary);
 		color: var(--text-ondark);

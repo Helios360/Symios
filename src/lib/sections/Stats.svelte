@@ -58,7 +58,7 @@
 		font-size: 38px;
 		font-weight: 800;
 		color: var(--accent);
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		line-height: 1;
 	}
 

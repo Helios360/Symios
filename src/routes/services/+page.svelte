@@ -317,7 +317,7 @@
 	}
 
 	.hero-text h1 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 800;
 		font-size: clamp(2.2rem, 5vw, 4.2rem);
 		line-height: 1.02;
@@ -423,7 +423,7 @@
 	.card-icon { font-size: 2.2rem; display: block; margin-bottom: 0.8rem; }
 
 	.card h3 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 700;
 		font-size: 1.2rem;
 		margin-bottom: 0.2rem;
@@ -499,7 +499,7 @@
 	}
 
 	.product-section h2 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 800;
 		font-size: clamp(1.6rem, 3vw, 2.4rem);
 		margin-bottom: 0.5rem;
@@ -537,7 +537,7 @@
 	.tile-icon { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
 
 	.product-tile h4 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 600;
 		font-size: 0.95rem;
 		margin-bottom: 0.3rem;
@@ -563,7 +563,7 @@
 		transform-style: preserve-3d;
 	}
 	.cta-card h2 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 800;
 		font-size: clamp(1.5rem, 3vw, 2.4rem);
 		color: var(--primary);
@@ -625,7 +625,7 @@
 	.modal-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
 
 	.modal h2 {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 700;
 		font-size: 1.6rem;
 		color: var(--primary);
@@ -650,7 +650,7 @@
 	}
 
 	:global(.modal-body h4) {
-		font-family: "artistic", serif;
+		font-family: "Monoton", sans-serif;
 		font-weight: 600;
 		font-size: 1rem;
 		color: var(--primary);

@@ -110,14 +110,14 @@
 		color: var(--text-color);
 	}
 	.post-content :global(h2) {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 28px;
 		font-weight: 700;
 		color: var(--primary);
 		margin: 2rem 0 0.8rem;
 	}
 	.post-content :global(h3) {
-		font-family: 'artistic', sans-serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 20px;
 		font-weight: 600;
 		color: var(--primary);

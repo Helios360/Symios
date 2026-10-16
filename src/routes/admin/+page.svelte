@@ -427,7 +427,7 @@
 		gap: 1rem;
 	}
 	.card h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 22px;
 		color: var(--primary);
 	}

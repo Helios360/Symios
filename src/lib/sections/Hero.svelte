@@ -59,10 +59,10 @@
 	}
 
 	.terminal-title {
-		max-width: 70%;
+		max-width: 60%;
 		position: absolute;
 		top: 300px;
-		left: -7%;
+		left: -3%;
 		z-index: 100;
 		will-change: transform;
 	}
@@ -78,6 +78,7 @@
 	@media screen and (max-width: 1636px) {
 		.terminal-title {
 			max-width: 60%;
+			top:40%;
 			left: 5%;
 		}
 		.terminal-desc {
@@ -96,9 +97,9 @@
 	}
 
 	h1 {
-		font-family: 'artistic', serif;
-		font-weight: 800;
-		font-size: clamp(40px, 6.4vw, 116px);
+		font-family: 'Monoton', sans-serif;
+		font-weight: 400;
+		font-size: clamp(24px, 4vw, 72px);
 		line-height: 0.9;
 		color: var(--text-ondark);
 		text-transform: uppercase;
@@ -164,7 +165,7 @@
 			will-change: auto;
 		}
 		h1 {
-			font-size: clamp(32px, 8vw, 50px);
+			font-size: clamp(24px, 6vw, 36px);
 			padding: 0.8rem;
 		}
 		.hero-desc {

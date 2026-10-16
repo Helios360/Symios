@@ -123,7 +123,7 @@
 		color: var(--text-color);
 	}
 	.legal-content h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 22px;
 		font-weight: 700;
 		color: var(--primary);

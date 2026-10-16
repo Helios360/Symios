@@ -137,7 +137,7 @@
 		gap: 1.1rem;
 	}
 	.panel h2 {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 22px;
 		color: var(--primary);
 	}
@@ -185,7 +185,7 @@
 		font-size: 18px;
 	}
 	.cart-total strong {
-		font-family: 'artistic', serif;
+		font-family: 'Monoton', sans-serif;
 		font-size: 24px;
 		color: var(--primary);
 	}

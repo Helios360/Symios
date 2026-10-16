@@ -4,7 +4,6 @@
 	let { data }: { data: PageData } = $props();
 
 	import Hero from '$lib/sections/Hero.svelte';
-	import Marquee from '$lib/sections/Marquee.svelte';
 	import Stats from '$lib/sections/Stats.svelte';
 	import Catalogue from '$lib/sections/Catalogue.svelte';
 	import Terminal from '$lib/sections/Terminal.svelte';
@@ -32,7 +31,6 @@
 
 	<div class="content-layer">
 		<Hero />
-		<Marquee />
 		<Stats
 			stats={[
 				{ number: '15+', title: 'Projets', value: 15 },
