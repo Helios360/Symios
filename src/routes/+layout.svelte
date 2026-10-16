@@ -3,6 +3,7 @@
 	import { resolve, asset } from '$app/paths';
 	import type { LayoutData } from './$types';
 	import { scrollSpeed } from '$lib/motion/scrollSpeed';
+	import CookieConsent from '$lib/components/CookieConsent.svelte';
 	import '../styles/app.css';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
@@ -170,6 +171,9 @@
 	<span>© {new Date().getFullYear()} symios — fait par hellios</span>
 	<span>open-source friendly · <a href="{resolve('/cgv')}">CGV</a> · <a href="{resolve('/cgu')}">CGU</a> · <a href="{resolve('/mentions-legales')}">Mentions légales</a></span>
 </footer>
+
+<!-- Bandeau de consentement cookies (hors slot principal, avant la fin du body) -->
+<CookieConsent />
 
 <style>
 	.site-logo {
