@@ -2,7 +2,6 @@ import { betterAuth } from 'better-auth';
 import { env } from '$env/dynamic/private';
 import { pool } from './db';
 import { sendEmail } from './email';
-import { passwordPolicyPlugin } from './password-policy';
 
 const trustedOrigins = (env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
 	.split(',')
@@ -57,10 +56,7 @@ export const auth = betterAuth({
 		},
 		deleteUser: { enabled: true },
 		changeEmail: { enabled: true }
-	},
-	plugins: [
-		passwordPolicyPlugin()
-	]
+	}
 });
 
 export type Auth = typeof auth;
