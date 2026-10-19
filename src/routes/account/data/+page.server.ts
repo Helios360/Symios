@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { validateEmail } from '$lib/validation';
+import { notifyRgpdRequest, confirmRgpdRequest } from '$lib/server/email';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -27,15 +28,21 @@ export const actions: Actions = {
 			return fail(400, { error: 'Type de demande invalide.', email, type, message });
 		}
 
-		// TODO: envoyer la demande par email à elias.treguier@gmail.com
-		// (nodemailer ou service d'email transactionnel). Pour l'instant on journalise.
-		console.log('[RGPD] Nouvelle demande de données', {
+		const details = {
 			userId: locals.user.id,
 			email,
 			type,
-			message,
-			date: new Date().toISOString()
-		});
+			message
+		};
+
+		// Notifier l'administrateur (Elias)
+		await notifyRgpdRequest(details);
+
+		// Envoyer un accusé de réception à l'utilisateur
+		await confirmRgpdRequest(email);
+
+		// Toujours journaliser en base / logs pour backup
+		console.log('[RGPD] Demande traitee', details);
 
 		return { success: true };
 	}

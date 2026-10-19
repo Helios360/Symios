@@ -22,6 +22,7 @@
 		"@sveltejs/adapter-node": "^5.5.7",
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@types/nodemailer": "^8.0.2",
 		"@types/three": "^0.185.1",
 		"svelte": "^5.56.1",
 		"svelte-check": "^4.6.0",
@@ -32,6 +33,7 @@
 	"dependencies": {
 		"better-auth": "^1.6.19",
 		"mysql2": "^3.22.5",
+		"nodemailer": "^10.1.7",
 		"stripe": "^22.6.0",
 		"three": "^0.185.1"
 	}

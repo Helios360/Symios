@@ -126,6 +126,25 @@ fake-real-time stats requires either DB counters or an uptime monitoring service
 
 ---
 
+## ✅ Resolved items
+
+### RGPD email notification
+
+**Status:** ✅ RESOLVED — `src/lib/server/email.ts` created with nodemailer + Infomaniak SMTP.  
+The RGPD data form (`/account/data`) now sends real emails instead of console.log.  
+Admin notification goes to `elias.treguier@gmail.com`, confirmation sent to the requesting user.
+
+**Env vars added:**
+```
+SMTP_HOST=mail.infomaniak.com
+SMTP_PORT=465
+SMTP_USER=...
+SMTP_PASS=...
+SMTP_FROM=noreply@symios.fr
+```
+
+---
+
 ## 7. Image assets need optimization
 
 **Files:** `static/images/favicon.png` (149 KB), `static/images/icon.png` (495 bytes)
