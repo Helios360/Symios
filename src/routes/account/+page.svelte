@@ -372,7 +372,7 @@
 					</div>
 					<div class="forgot-row">
 						<button type="submit" class="cta" disabled={busy}>Se connecter</button>
-						<a href="/contact" class="forgot-link mono-alt" onclick={(e) => { e.preventDefault(); authError = 'Fonctionnalité à venir — contactez-moi pour réinitialiser.'; }}>Mot de passe oublié ?</a>
+						<a href={resolve('/forgot-password')} class="forgot-link mono-alt">Mot de passe oublié ?</a>
 					</div>
 				</form>
 			{:else}

@@ -1,6 +1,8 @@
 import { betterAuth } from 'better-auth';
 import { env } from '$env/dynamic/private';
 import { pool } from './db';
+import { sendEmail } from './email';
+import { passwordPolicyPlugin } from './password-policy';
 
 const trustedOrigins = (env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
 	.split(',')
@@ -10,7 +12,30 @@ const trustedOrigins = (env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
 export const auth = betterAuth({
 	database: pool,
 	trustedOrigins,
-	emailAndPassword: { enabled: true },
+	emailAndPassword: {
+		enabled: true,
+		minPasswordLength: 8,
+		async sendResetPassword({ user, url }) {
+			await sendEmail({
+				to: user.email,
+				subject: 'Réinitialisation de votre mot de passe — Symios',
+				text: [
+					`Bonjour,`,
+					``,
+					`Vous avez demandé la réinitialisation de votre mot de passe Symios.`,
+					`Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :`,
+					``,
+					url,
+					``,
+					`Ce lien expire dans 1 heure.`,
+					`Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.`,
+					``,
+					`Cordialement,`,
+					`Symios`
+				].join('\n')
+			});
+		}
+	},
 	basePath: '/api/auth',
 	baseURL: {
 		url: env.BETTER_AUTH_URL || 'http://localhost:3000',
@@ -32,7 +57,10 @@ export const auth = betterAuth({
 		},
 		deleteUser: { enabled: true },
 		changeEmail: { enabled: true }
-	}
+	},
+	plugins: [
+		passwordPolicyPlugin()
+	]
 });
 
 export type Auth = typeof auth;
