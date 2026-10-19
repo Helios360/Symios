@@ -124,3 +124,20 @@ INSERT IGNORE INTO categories (name) VALUES
     ('À l''heure'),
     ('Formation'),
     ('Ressource');
+
+-- ── Seed articles ──────────────────────────────────────────
+
+INSERT INTO articles (category_id, slug, title, subtitle, cover_image_key, price, details_html)
+SELECT c.id, 'agent-gere', 'Agent géré', 'Votre agent IA en production, suivi et amélioré en continu, mois après mois.', NULL, 890.00, '<ul><li>Agent IA dédié à votre activité</li><li>Hébergement souverain (Infomaniak)</li><li>Mise à jour et amélioration continue</li><li>Documentation complète incluse</li><li>Support prioritaire</li></ul>'
+FROM categories c WHERE c.name = 'Abonnement'
+AND NOT EXISTS (SELECT 1 FROM articles WHERE slug = 'agent-gere');
+
+INSERT INTO articles (category_id, slug, title, subtitle, cover_image_key, price, details_html)
+SELECT c.id, 'deploiement-cle-en-main', 'Déploiement clé en main', 'Un projet cadré, de l''audit à la mise en production, livré avec sa documentation.', NULL, 3500.00, '<ul><li>Audit de vos besoins</li><li>Architecture personnalisée</li><li>Développement et tests</li><li>Déploiement souverain</li><li>Documentation complète</li></ul>'
+FROM categories c WHERE c.name = 'Forfait'
+AND NOT EXISTS (SELECT 1 FROM articles WHERE slug = 'deploiement-cle-en-main');
+
+INSERT INTO articles (category_id, slug, title, subtitle, cover_image_key, price, details_html)
+SELECT c.id, 'expertise-a-la-demande', 'Expertise à la demande', 'Conseil, debug ou formation IA ponctuels, quand vous en avez besoin, sans engagement.', NULL, 120.00, '<ul><li>Conseil technique personnalisé</li><li>Debug et résolution de problèmes</li><li>Formation individuelle ou en groupe</li><li>Sans engagement, à l''heure</li></ul>'
+FROM categories c WHERE c.name = 'À l''heure'
+AND NOT EXISTS (SELECT 1 FROM articles WHERE slug = 'expertise-a-la-demande');
