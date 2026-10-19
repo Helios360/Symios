@@ -99,7 +99,7 @@
 	h1 {
 		font-family: 'Monoton', sans-serif;
 		font-weight: 400;
-		font-size: clamp(24px, 4vw, 72px);
+		font-size: clamp(30px, 4vw, 72px);
 		line-height: 0.9;
 		color: var(--text-ondark);
 		text-transform: uppercase;
