@@ -45,10 +45,6 @@
 	}
 
 	h2 {
-		font-family: 'Monoton', sans-serif;
-		font-weight: 800;
-		font-size: 42px;
-		text-transform: uppercase;
 		color: var(--text-ondark);
 	}
 

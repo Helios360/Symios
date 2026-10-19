@@ -110,13 +110,7 @@
 		gap: 1rem;
 	}
 
-	h2 {
-		font-family: 'Monoton', sans-serif;
-		font-weight: 800;
-		font-size: 42px;
-		color: var(--primary);
-		text-transform: uppercase;
-	}
+	/* h2 styled globally in app.css */
 
 	.terminal-desc {
 		font-size: 14px;
