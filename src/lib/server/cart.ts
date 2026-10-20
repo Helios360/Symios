@@ -119,11 +119,13 @@ export async function addItem(
 	const existing = (existingRows as any[])[0];
 
 	if (existing) {
+		// Attention : MySQL évalue les SET de gauche à droite — il faut calculer
+		// unit_price avec l'ANCIENNE quantité, donc avant l'incrément de quantity.
 		await pool.query(
 			`
 			UPDATE cart_items
-			SET quantity = quantity + 1,
-			    unit_price = (quantity + 1) * (slices * (SELECT price FROM articles WHERE id = article_id))
+			SET unit_price = (quantity + 1) * (slices * (SELECT price FROM articles WHERE id = article_id)),
+			    quantity = quantity + 1
 			WHERE id = ?
 			`,
 			[existing.id]
@@ -159,8 +161,8 @@ export async function removeItem(userId: string, itemId: number): Promise<Cart |
 		await pool.query(
 			`
 			UPDATE cart_items
-			SET quantity = quantity - 1,
-			    unit_price = (quantity - 1) * (? * (SELECT price FROM articles WHERE id = ?))
+			SET unit_price = (quantity - 1) * (? * (SELECT price FROM articles WHERE id = ?)),
+			    quantity = quantity - 1
 			WHERE id = ?
 			`,
 			[item.slices, item.article_id, item.id]

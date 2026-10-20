@@ -14,8 +14,25 @@ jobs:
   ci:
     name: Lint & test & build
     runs-on: ubuntu-latest
-    # Dummy values so `svelte-kit sync` can generate $env/static/private
-    # module types during check/build. Never executed in this job.
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: symios
+          MYSQL_USER: ci
+          MYSQL_PASSWORD: ci
+        ports:
+          - 3306:3306
+        volumes:
+          - ./db/init:/docker-entrypoint-initdb.d:ro
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost -proot"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    # DATABASE_URL pointe vers le service MySQL ; les autres valeurs
+    # permettent à svelte-kit sync de générer $env/static/private.
     env:
       DATABASE_URL: mysql://ci:ci@127.0.0.1:3306/symios
       STRIPE_PRIVATE_KEY: sk_test_ci_placeholder
@@ -36,7 +53,7 @@ jobs:
       - name: Svelte check
         run: npm run check
 
-      - name: Unit tests (Vitest)
+      - name: Unit + integration tests (Vitest)
         run: npm test
 
       - name: Build
