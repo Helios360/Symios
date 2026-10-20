@@ -18,6 +18,7 @@ export function validatePassword(value: string, { isNew = false }: { isNew?: boo
 		if (value.length > 128) return 'Trop long (max 128)';
 		if (!/[A-Za-z]/.test(value)) return 'Doit contenir au moins une lettre';
 		if (!/\d/.test(value)) return 'Doit contenir au moins un chiffre';
+		if (!/[A-Z]/.test(value)) return 'Doit contenir au moins une majuscule';
 	}
 	return null;
 }
