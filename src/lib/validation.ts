@@ -19,6 +19,7 @@ export function validatePassword(value: string, { isNew = false }: { isNew?: boo
 		if (!/[A-Za-z]/.test(value)) return 'Doit contenir au moins une lettre';
 		if (!/\d/.test(value)) return 'Doit contenir au moins un chiffre';
 		if (!/[A-Z]/.test(value)) return 'Doit contenir au moins une majuscule';
+		if (!/[^A-Za-z0-9]/.test(value)) return 'Doit contenir au moins un caractère spécial';
 	}
 	return null;
 }

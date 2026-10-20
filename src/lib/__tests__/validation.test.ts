@@ -47,7 +47,8 @@ describe('validatePassword', () => {
 		expect(validatePassword('abcdefgh', { isNew: true })).toBe('Doit contenir au moins un chiffre');
 		expect(validatePassword('12345678', { isNew: true })).toBe('Doit contenir au moins une lettre');
 		expect(validatePassword('motdepasse1', { isNew: true })).toBe('Doit contenir au moins une majuscule');
-		expect(validatePassword('Motdepasse1', { isNew: true })).toBeNull();
+		expect(validatePassword('Motdepasse1', { isNew: true })).toBe('Doit contenir au moins un caractère spécial');
+		expect(validatePassword('Motdepasse1!', { isNew: true })).toBeNull();
 	});
 
 	it('rejette un mot de passe trop long', () => {
