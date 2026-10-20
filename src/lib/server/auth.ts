@@ -14,7 +14,12 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 		minPasswordLength: 8,
-		async sendResetPassword({ user, url }) {
+		async sendResetPassword({ user, url, token }) {
+			// Construit notre propre lien de reset (la page lit ?token=).
+			// L'URL générée par better-auth (/reset-password/{token}?callbackURL=)
+			// renvoie INVALID_TOKEN car callbackURL y est vide.
+			const base = env.BETTER_AUTH_URL || 'https://symios.fr';
+			const resetUrl = `${base}/reset-password?token=${encodeURIComponent(token ?? '')}`;
 			await sendEmail({
 				to: user.email,
 				subject: 'Réinitialisation de votre mot de passe — Symios',
@@ -24,7 +29,7 @@ export const auth = betterAuth({
 					`Vous avez demandé la réinitialisation de votre mot de passe Symios.`,
 					`Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :`,
 					``,
-					url,
+					resetUrl,
 					``,
 					`Ce lien expire dans 1 heure.`,
 					`Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.`,

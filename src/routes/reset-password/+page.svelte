@@ -5,8 +5,7 @@
 	import { validatePassword, validatePasswordConfirm } from '$lib/validation';
 	import type { FieldError } from '$lib/validation';
 
-	const token = $derived(page.params.token ?? '');
-	const callbackURL = $derived(page.url.searchParams.get('callbackURL') ?? '/account');
+	const token = $derived(page.url.searchParams.get('token') ?? '');
 
 	let password = $state('');
 	let confirm = $state('');
@@ -18,6 +17,7 @@
 		e.preventDefault();
 		error = null;
 
+		if (!token) { error = 'Lien invalide ou expiré. Faites une nouvelle demande.'; return; }
 		const pwErr: FieldError = validatePassword(password, { isNew: true });
 		const cfErr: FieldError = validatePasswordConfirm(password, confirm);
 		if (pwErr) { error = pwErr; return; }
@@ -46,7 +46,7 @@
 			<p class="section-index">// MOT DE PASSE MODIFIÉ</p>
 			<h1>✅ C'est fait !</h1>
 			<p class="mono-alt sub">Votre mot de passe a été réinitialisé. Vous pouvez vous connecter.</p>
-			<a href={callbackURL} class="cta">Se connecter</a>
+			<a href="/account" class="cta">Se connecter</a>
 		</article>
 	{:else}
 		<article class="panel card">
