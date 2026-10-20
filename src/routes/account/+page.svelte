@@ -63,7 +63,7 @@
 		else await invalidateAll();
 	}
 
-	let reg = $state({ email: '', name: '', phone: '', address: '', city: '', password: '', confirm: '' });
+	let reg = $state({ email: '', name: '', fname: '', phone: '', address: '', city: '', password: '', confirm: '' });
 	let regErr = $state<Errors>({});
 
 	async function submitRegister(e: SubmitEvent) {
@@ -72,6 +72,7 @@
 		regErr = {
 			email: validateEmail(reg.email),
 			name: validateName(reg.name, { required: true }),
+			fname: validateName(reg.fname, { required: false }),
 			phone: validatePhone(reg.phone, { required: true }),
 			address: validateAddress(reg.address, { required: false }),
 			city: validateCity(reg.city, { required: false }),
@@ -84,8 +85,8 @@
 			email: reg.email.trim(),
 			password: reg.password,
 			name: reg.name.trim(),
+			fname: reg.fname.trim(),
 			phone: reg.phone.trim(),
-			fname: reg.name.trim(),
 			address: reg.address.trim(),
 			city: reg.city.trim()
 		} as any);
@@ -377,8 +378,13 @@
 				</form>
 			{:else}
 				<form class="form-grid" onsubmit={submitRegister}>
-					<div class="full">
-						<label class="label" for="r-name">Nom complet</label>
+					<div>
+						<label class="label" for="r-fname">Prénom</label>
+						<input id="r-fname" class="input" bind:value={reg.fname} aria-invalid={!!regErr.fname} />
+						{#if regErr.fname}<p class="field-error">{regErr.fname}</p>{/if}
+					</div>
+					<div>
+						<label class="label" for="r-name">Nom</label>
 						<input id="r-name" class="input" bind:value={reg.name} aria-invalid={!!regErr.name} />
 						{#if regErr.name}<p class="field-error">{regErr.name}</p>{/if}
 					</div>
