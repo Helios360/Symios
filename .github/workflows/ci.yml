@@ -14,6 +14,12 @@ jobs:
   ci:
     name: Lint & test & build
     runs-on: ubuntu-latest
+    # Dummy values so `svelte-kit sync` can generate $env/static/private
+    # module types during check/build. Never executed in this job.
+    env:
+      DATABASE_URL: mysql://ci:ci@127.0.0.1:3306/symios
+      STRIPE_PRIVATE_KEY: sk_test_ci_placeholder
+      STRIPE_WEBHOOK_SECRET: whsec_ci_placeholder
     steps:
       - name: Checkout
         uses: actions/checkout@v4
