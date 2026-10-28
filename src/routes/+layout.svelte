@@ -51,7 +51,7 @@
 		areaServed: { '@type': 'AdministrativeArea', name: "France" },
 		sameAs: [
 			'https://github.com/Helios360',
-			'https://www.linkedin.com/in/elias-treguier-5234b7242/?isSelfProfile=true',
+			'https://www.linkedin.com/in/elias-treguier-5234b7242/',
 			'https://www.instagram.com/elios0.4',
 		]
 	};
@@ -141,7 +141,7 @@
 	<span>
 		<a href="https://github.com/Helios360" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><u>github</u></a> x
 		<a href="https://www.instagram.com/elios0.4/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a>
-		<a href="https://www.linkedin.com/in/elias-treguier-5234b7242/?isSelfProfile=true" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+		<a href="https://www.linkedin.com/in/elias-treguier-5234b7242/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
 	</span>
 	<span class="account-links">
 		{#if data.cartCount > 0}
@@ -167,7 +167,7 @@
 		<span>
 			<p style="color:var(--accent)">SUIVRE</p>
 			<a href="https://github.com/Helios360" target="_blank" rel="noopener noreferrer">GitHub</a>
-			<a href="https://www.linkedin.com/company/symios" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+			<a href="https://www.linkedin.com/in/elias-treguier-5234b7242/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
 			<!--<a href="/" target="_blank" rel="noopener noreferrer" aria-label="RSS">RSS</a>-->
 		</span>
 	</div>
