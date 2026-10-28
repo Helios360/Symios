@@ -14,6 +14,7 @@
 		hasErrors,
 		type FieldError
 	} from '$lib/validation';
+	import PasswordInput from '$lib/components/password-input.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -276,17 +277,17 @@
 				<div class="form-grid">
 					<div class="full">
 						<label class="label" for="e-name">Nom</label>
-						<input id="e-name" class="input" bind:value={edit.name} aria-invalid={!!editErr.name} />
+						<input id="e-name" class="input" value={edit.name} oninput={(e) => (edit.name = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.name} />
 						{#if editErr.name}<p class="field-error">{editErr.name}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="e-fname">Prénom</label>
-						<input id="e-fname" class="input" bind:value={edit.fname} aria-invalid={!!editErr.fname} />
+						<input id="e-fname" class="input" value={edit.fname} oninput={(e) => (edit.fname = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.fname} />
 						{#if editErr.fname}<p class="field-error">{editErr.fname}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="e-phone">Téléphone</label>
-						<input id="e-phone" class="input" bind:value={edit.phone} aria-invalid={!!editErr.phone} />
+						<input id="e-phone" class="input" type="tel" bind:value={edit.phone} aria-invalid={!!editErr.phone} />
 						{#if editErr.phone}<p class="field-error">{editErr.phone}</p>{/if}
 					</div>
 					<div>
@@ -296,7 +297,7 @@
 					</div>
 					<div>
 						<label class="label" for="e-city">Ville</label>
-						<input id="e-city" class="input" bind:value={edit.city} aria-invalid={!!editErr.city} />
+						<input id="e-city" class="input" value={edit.city} oninput={(e) => (edit.city = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.city} />
 						{#if editErr.city}<p class="field-error">{editErr.city}</p>{/if}
 					</div>
 				</div>
@@ -315,12 +316,7 @@
 					<form class="confirm" onsubmit={deleteAccount}>
 						<div>
 							<label class="label" for="d-pass">Confirmez avec votre mot de passe</label>
-							<input
-								id="d-pass"
-								class="input"
-								type="password"
-								bind:value={deletePassword}
-								aria-invalid={!!deleteErr} />
+							<PasswordInput id="d-pass" class="input" bind:value={deletePassword} aria-invalid={!!deleteErr} />
 							{#if deleteErr}<p class="field-error">{deleteErr}</p>{/if}
 						</div>
 						<div class="confirm-actions">
@@ -368,7 +364,7 @@
 					</div>
 					<div class="full">
 						<label class="label" for="l-pass">Mot de passe</label>
-						<input id="l-pass" class="input" type="password" bind:value={login.password} aria-invalid={!!loginErr.password} />
+						<PasswordInput id="l-pass" class="input" bind:value={login.password} aria-invalid={!!loginErr.password} />
 						{#if loginErr.password}<p class="field-error">{loginErr.password}</p>{/if}
 					</div>
 					<div class="forgot-row">
@@ -380,12 +376,12 @@
 				<form class="form-grid" onsubmit={submitRegister}>
 					<div>
 						<label class="label" for="r-fname">Prénom</label>
-						<input id="r-fname" class="input" bind:value={reg.fname} aria-invalid={!!regErr.fname} />
+						<input id="r-fname" class="input" value={reg.fname} oninput={(e) => (reg.fname = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.fname} />
 						{#if regErr.fname}<p class="field-error">{regErr.fname}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="r-name">Nom</label>
-						<input id="r-name" class="input" bind:value={reg.name} aria-invalid={!!regErr.name} />
+						<input id="r-name" class="input" value={reg.name} oninput={(e) => (reg.name = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.name} />
 						{#if regErr.name}<p class="field-error">{regErr.name}</p>{/if}
 					</div>
 					<div class="full">
@@ -395,12 +391,12 @@
 					</div>
 					<div>
 						<label class="label" for="r-phone">Téléphone</label>
-						<input id="r-phone" class="input" bind:value={reg.phone} aria-invalid={!!regErr.phone} />
+						<input id="r-phone" class="input" type="tel" bind:value={reg.phone} aria-invalid={!!regErr.phone} />
 						{#if regErr.phone}<p class="field-error">{regErr.phone}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="r-city">Ville</label>
-						<input id="r-city" class="input" bind:value={reg.city} aria-invalid={!!regErr.city} />
+						<input id="r-city" class="input" value={reg.city} oninput={(e) => (reg.city = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.city} />
 						{#if regErr.city}<p class="field-error">{regErr.city}</p>{/if}
 					</div>
 					<div class="full">
@@ -410,12 +406,12 @@
 					</div>
 					<div>
 						<label class="label" for="r-pass">Mot de passe</label>
-						<input id="r-pass" class="input" type="password" bind:value={reg.password} aria-invalid={!!regErr.password} />
+						<PasswordInput id="r-pass" class="input" bind:value={reg.password} aria-invalid={!!regErr.password} />
 						{#if regErr.password}<p class="field-error">{regErr.password}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="r-confirm">Confirmation</label>
-						<input id="r-confirm" class="input" type="password" bind:value={reg.confirm} aria-invalid={!!regErr.confirm} />
+						<PasswordInput id="r-confirm" class="input" bind:value={reg.confirm} aria-invalid={!!regErr.confirm} />
 						{#if regErr.confirm}<p class="field-error">{regErr.confirm}</p>{/if}
 					</div>
 					<button type="submit" class="cta full" disabled={busy}>Créer mon compte</button>

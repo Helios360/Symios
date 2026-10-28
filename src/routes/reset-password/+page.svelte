@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { authClient } from '$lib/auth-client';
+	import PasswordInput from '$lib/components/password-input.svelte';
 	import { validatePassword, validatePasswordConfirm } from '$lib/validation';
 	import type { FieldError } from '$lib/validation';
 
@@ -60,27 +61,11 @@
 			<form class="form-grid" onsubmit={handleSubmit}>
 				<div class="full">
 					<label class="label" for="rp-pass">Nouveau mot de passe</label>
-					<input
-						id="rp-pass"
-						class="input"
-						type="password"
-						bind:value={password}
-						aria-invalid={!!error}
-						required
-						minlength={8}
-					/>
+					<PasswordInput id="rp-pass" class="input" bind:value={password} aria-invalid={!!error} required minlength={8} />
 				</div>
 				<div class="full">
 					<label class="label" for="rp-confirm">Confirmation</label>
-					<input
-						id="rp-confirm"
-						class="input"
-						type="password"
-						bind:value={confirm}
-						aria-invalid={!!error}
-						required
-						minlength={8}
-					/>
+					<PasswordInput id="rp-confirm" class="input" bind:value={confirm} aria-invalid={!!error} required minlength={8} />
 				</div>
 				<button type="submit" class="cta" disabled={busy}>
 					{busy ? 'Mise à jour…' : 'Réinitialiser'}
