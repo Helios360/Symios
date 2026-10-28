@@ -24,8 +24,6 @@ jobs:
           MYSQL_PASSWORD: ci
         ports:
           - 3306:3306
-        volumes:
-          - ./db/init:/docker-entrypoint-initdb.d:ro
         options: >-
           --health-cmd "mysqladmin ping -h localhost -proot"
           --health-interval 10s
@@ -40,6 +38,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Init database schema
+        run: |
+          # db/init n'est pas bind-mounté dans le service MySQL : le conteneur
+          # laisserait des fichiers root-owner dans le workspace et ferait
+          # échouer le checkout du run suivant (EACCES rmdir). On applique le
+          # schéma ici via un conteneur jetable (montage en lecture seule sur
+          # /tmp, stdin pour le SQL) : aucun fichier ne reste dans le workspace.
+          for f in db/init/*.sql; do
+            docker run --rm --network host -i \
+              -e MYSQL_PWD=root \
+              mysql:8 mysql -h 127.0.0.1 -uroot symios < "$f"
+          done
 
       - name: Setup Node 22
         uses: actions/setup-node@v4
