@@ -287,7 +287,7 @@
 					</div>
 					<div>
 						<label class="label" for="e-phone">Téléphone</label>
-						<input id="e-phone" class="input" type="tel" bind:value={edit.phone} aria-invalid={!!editErr.phone} />
+						<input id="e-phone" class="input" type="tel" value={edit.phone} oninput={(e) => (edit.phone = e.currentTarget.value.replace(/[^0-9+\s.\-()]/g, ''))} aria-invalid={!!editErr.phone} />
 						{#if editErr.phone}<p class="field-error">{editErr.phone}</p>{/if}
 					</div>
 					<div>
@@ -391,7 +391,7 @@
 					</div>
 					<div>
 						<label class="label" for="r-phone">Téléphone</label>
-						<input id="r-phone" class="input" type="tel" bind:value={reg.phone} aria-invalid={!!regErr.phone} />
+						<input id="r-phone" class="input" type="tel" value={reg.phone} oninput={(e) => (reg.phone = e.currentTarget.value.replace(/[^0-9+\s.\-()]/g, ''))} aria-invalid={!!regErr.phone} />
 						{#if regErr.phone}<p class="field-error">{regErr.phone}</p>{/if}
 					</div>
 					<div>
