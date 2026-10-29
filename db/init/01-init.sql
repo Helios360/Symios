@@ -17,6 +17,10 @@ CREATE TABLE articles (
 -- Better Auth tables (user, session, account, verification)
 -- Must come BEFORE carts/auth tables that reference user(id).
 
+-- L'utilisateur applicatif peut ne pas exister (conteneur CI frais avec un
+-- autre MYSQL_USER) : CREATE IF NOT EXISTS puis ALTER rendent le script
+-- idempotent, en local comme en CI.
+CREATE USER IF NOT EXISTS 'symios'@'%' IDENTIFIED WITH caching_sha2_password BY 'symios';
 ALTER USER 'symios'@'%' IDENTIFIED WITH caching_sha2_password BY 'symios';
 FLUSH PRIVILEGES;
 
