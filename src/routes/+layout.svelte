@@ -140,8 +140,8 @@
 <div class="subheader">
 	<span>
 		<a href="https://github.com/Helios360" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><u>github</u></a> x
-		<a href="https://www.instagram.com/elios0.4/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a>
-		<a href="https://www.linkedin.com/in/elias-treguier-5234b7242/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+		<a href="https://www.instagram.com/elios0.4/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><u>instagram</u></a> x
+		<a href="https://www.linkedin.com/in/elias-treguier-5234b7242/" target="_blank" rel="noopener noreferrer"><u>LinkedIn</u></a>
 	</span>
 	<span class="account-links">
 		{#if data.cartCount > 0}
