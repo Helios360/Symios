@@ -24,6 +24,23 @@
 
 	type Errors = Record<string, FieldError>;
 
+	// ── Filtres de saisie ─────────────────────────────────────
+	// Mute le DOM directement : avec value={...} + oninput, si la valeur
+	// assainie ne change pas l'état (ex. taper un chiffre après une lettre),
+	// Svelte 5 ne re-render pas et le caractère resterait affiché.
+	function lettersOnly(e: Event): string {
+		const el = e.currentTarget as HTMLInputElement;
+		const clean = el.value.replace(/[0-9]/g, '');
+		if (clean !== el.value) el.value = clean;
+		return clean;
+	}
+	function phoneOnly(e: Event): string {
+		const el = e.currentTarget as HTMLInputElement;
+		const clean = el.value.replace(/[^0-9+\s.\-()]/g, '');
+		if (clean !== el.value) el.value = clean;
+		return clean;
+	}
+
 	// ── Panier & historique ────────────────────────────────────
 	const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
 	const dateFmt = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
@@ -277,17 +294,17 @@
 				<div class="form-grid">
 					<div class="full">
 						<label class="label" for="e-name">Nom</label>
-						<input id="e-name" class="input" value={edit.name} oninput={(e) => (edit.name = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.name} />
+						<input id="e-name" class="input" value={edit.name} oninput={(e) => (edit.name = lettersOnly(e))} aria-invalid={!!editErr.name} />
 						{#if editErr.name}<p class="field-error">{editErr.name}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="e-fname">Prénom</label>
-						<input id="e-fname" class="input" value={edit.fname} oninput={(e) => (edit.fname = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.fname} />
+						<input id="e-fname" class="input" value={edit.fname} oninput={(e) => (edit.fname = lettersOnly(e))} aria-invalid={!!editErr.fname} />
 						{#if editErr.fname}<p class="field-error">{editErr.fname}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="e-phone">Téléphone</label>
-						<input id="e-phone" class="input" type="tel" value={edit.phone} oninput={(e) => (edit.phone = e.currentTarget.value.replace(/[^0-9+\s.\-()]/g, ''))} aria-invalid={!!editErr.phone} />
+						<input id="e-phone" class="input" type="tel" value={edit.phone} oninput={(e) => (edit.phone = phoneOnly(e))} aria-invalid={!!editErr.phone} />
 						{#if editErr.phone}<p class="field-error">{editErr.phone}</p>{/if}
 					</div>
 					<div>
@@ -297,7 +314,7 @@
 					</div>
 					<div>
 						<label class="label" for="e-city">Ville</label>
-						<input id="e-city" class="input" value={edit.city} oninput={(e) => (edit.city = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!editErr.city} />
+						<input id="e-city" class="input" value={edit.city} oninput={(e) => (edit.city = lettersOnly(e))} aria-invalid={!!editErr.city} />
 						{#if editErr.city}<p class="field-error">{editErr.city}</p>{/if}
 					</div>
 				</div>
@@ -376,12 +393,12 @@
 				<form class="form-grid" onsubmit={submitRegister}>
 					<div>
 						<label class="label" for="r-fname">Prénom</label>
-						<input id="r-fname" class="input" value={reg.fname} oninput={(e) => (reg.fname = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.fname} />
+						<input id="r-fname" class="input" value={reg.fname} oninput={(e) => (reg.fname = lettersOnly(e))} aria-invalid={!!regErr.fname} />
 						{#if regErr.fname}<p class="field-error">{regErr.fname}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="r-name">Nom</label>
-						<input id="r-name" class="input" value={reg.name} oninput={(e) => (reg.name = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.name} />
+						<input id="r-name" class="input" value={reg.name} oninput={(e) => (reg.name = lettersOnly(e))} aria-invalid={!!regErr.name} />
 						{#if regErr.name}<p class="field-error">{regErr.name}</p>{/if}
 					</div>
 					<div class="full">
@@ -391,12 +408,12 @@
 					</div>
 					<div>
 						<label class="label" for="r-phone">Téléphone</label>
-						<input id="r-phone" class="input" type="tel" value={reg.phone} oninput={(e) => (reg.phone = e.currentTarget.value.replace(/[^0-9+\s.\-()]/g, ''))} aria-invalid={!!regErr.phone} />
+						<input id="r-phone" class="input" type="tel" value={reg.phone} oninput={(e) => (reg.phone = phoneOnly(e))} aria-invalid={!!regErr.phone} />
 						{#if regErr.phone}<p class="field-error">{regErr.phone}</p>{/if}
 					</div>
 					<div>
 						<label class="label" for="r-city">Ville</label>
-						<input id="r-city" class="input" value={reg.city} oninput={(e) => (reg.city = e.currentTarget.value.replace(/[0-9]/g, ''))} aria-invalid={!!regErr.city} />
+						<input id="r-city" class="input" value={reg.city} oninput={(e) => (reg.city = lettersOnly(e))} aria-invalid={!!regErr.city} />
 						{#if regErr.city}<p class="field-error">{regErr.city}</p>{/if}
 					</div>
 					<div class="full">
