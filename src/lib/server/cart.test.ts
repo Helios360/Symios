@@ -93,7 +93,7 @@ describe('panier (cart.ts)', () => {
 		await attachStripeSession(userId, sessionId);
 
 		const confirmed = await confirmStripePayment(sessionId);
-		expect(confirmed).toBe(cart!.id);
+		expect(confirmed?.id).toBe(cart!.id);
 
 		// Déjà traité : ne renvoie rien, ne casse pas.
 		expect(await confirmStripePayment(sessionId)).toBeNull();

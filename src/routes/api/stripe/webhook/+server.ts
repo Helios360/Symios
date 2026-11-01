@@ -1,13 +1,22 @@
 import { json, error } from '@sveltejs/kit';
 import { building } from '$app/environment';
 import { stripe } from '$lib/server/stripe';
+import type { Cart } from '$lib/server/cart';
 
-let _confirmStripePayment: ((sessionId: string) => Promise<string | null>) | null = null;
+let _confirmStripePayment: ((sessionId: string) => Promise<Cart | null>) | null = null;
 async function confirmStripePayment(sessionId: string) {
 	if (!_confirmStripePayment) {
 		_confirmStripePayment = (await import('$lib/server/cart')).confirmStripePayment;
 	}
 	return _confirmStripePayment(sessionId);
+}
+
+let _sendOrderConfirmationEmail: ((cart: Cart) => Promise<void>) | null = null;
+async function sendOrderConfirmationEmail(cart: Cart) {
+	if (!_sendOrderConfirmationEmail) {
+		_sendOrderConfirmationEmail = (await import('$lib/server/email')).sendOrderConfirmationEmail;
+	}
+	return _sendOrderConfirmationEmail(cart);
 }
 
 import type { RequestHandler } from './$types';
@@ -42,7 +51,8 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		const confirmed = await confirmStripePayment(session.id);
 		if (confirmed) {
-			console.log(`Stripe webhook: cart ${confirmed} confirmed (session ${session.id})`);
+			console.log(`Stripe webhook: cart ${confirmed.id} confirmed (session ${session.id})`);
+			await sendOrderConfirmationEmail(confirmed);
 		} else {
 			console.warn(`Stripe webhook: cart not found or already processed for session ${session.id}`);
 		}

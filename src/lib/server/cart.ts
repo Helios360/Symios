@@ -214,19 +214,25 @@ export async function attachStripeSession(
 }
 
 /**
- * Valide le panier Stripe (appelé par le webhook après paiement réussi).
- * Fige le total et le passe en `completed`.
- * Renvoie l'id du panier validé, ou `null` s'il n'a pas été trouvé.
+ * Valide le panier Stripe (appelé par le webhook après paiement réussi,
+ * ou par la page de succès en secours).
+ * Fige le total et le passe en `completed` de façon atomique.
+ * Renvoie le panier validé, ou `null` s'il n'a pas été trouvé ou s'il a
+ * déjà été traité (appels concurrents webhook + page de succès).
  */
-export async function confirmStripePayment(stripeSessionId: string): Promise<string | null> {
+export async function confirmStripePayment(stripeSessionId: string): Promise<Cart | null> {
 	const cart = await getCartByStripeSession(stripeSessionId);
-	if (!cart || cart.status !== 'pending') return null;
+	if (!cart) return null;
 
-	await pool.query(
-		`UPDATE carts SET total_amount = ?, status = 'completed' WHERE id = ?`,
+	// Transition atomique : seul l'appel qui passe pending → completed gagne.
+	const [result] = await pool.query(
+		`UPDATE carts SET total_amount = ?, status = 'completed' WHERE id = ? AND status = 'pending'`,
 		[cart.total, cart.id]
 	);
-	return cart.id;
+	const affected = Number((result as any).affectedRows ?? 0);
+	if (affected === 0) return null; // déjà traité par un autre appel
+
+	return cart;
 }
 
 /** Charge un panier via son stripe_session_id. */
