@@ -111,7 +111,6 @@
 		<a href="{resolve('/services')}">services</a>
 		<a href="{resolve('/shop')}">shop</a>
 		<a href="{resolve('/blog')}">blog</a>
-		<a href="{resolve('/ressources')}">ressources</a>
 		{#if data.isAdmin}
 			<a href="{resolve('/admin')}">admin</a>
 		{/if}
@@ -129,7 +128,6 @@
 		<a href="{resolve('/services')}" onclick={() => (mobileNavOpen = false)}>services</a>
 		<a href="{resolve('/shop')}" onclick={() => (mobileNavOpen = false)}>shop</a>
 		<a href="{resolve('/blog')}" onclick={() => (mobileNavOpen = false)}>blog</a>
-		<a href="{resolve('/ressources')}" onclick={() => (mobileNavOpen = false)}>ressources</a>
 		{#if data.isAdmin}
 			<a href="{resolve('/admin')}" onclick={() => (mobileNavOpen = false)}>admin</a>
 		{/if}
